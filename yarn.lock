@@ -13,6 +13,12 @@
   version "1.1.11"
   resolved "https://registry.yarnpkg.com/@ant-design/icons/-/icons-1.1.11.tgz#24cc05aa77c31aeb09823e150bf3a2443bcdc48b"
 
+"@babel/runtime@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.0.0.tgz#adeb78fedfc855aa05bc041640f3f6f98e85424c"
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -2421,10 +2427,11 @@ ejs@^2.5.9:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/ejs/-/ejs-2.6.1.tgz#498ec0d495655abc6f23cd61868d926464071aa0"
 
-eksi@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/eksi/-/eksi-1.1.0.tgz#4fb6371e714059814bbd43a39ef5b86398d41170"
+eksi@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/eksi/-/eksi-1.1.1.tgz#470169de255d9563be5fa06871ab7f2fac8deb4d"
   dependencies:
+    "@babel/runtime" "^7.0.0"
     axios "^0.18.0"
     query-string "^6.1.0"
 
@@ -6346,6 +6353,10 @@ regenerate@^1.2.1:
 regenerator-runtime@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
+
+regenerator-runtime@^0.12.0:
+  version "0.12.1"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz#fa1a71544764c036f8c49b13a08b2594c9f8a0de"
 
 regenerator-transform@^0.10.0:
   version "0.10.1"
