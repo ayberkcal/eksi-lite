@@ -1,12 +1,14 @@
+body{
+  margin:0;
+  padding:0;
+}
 
 .normal {
 
 }
 
 .header {
-  background-color: #ff6600;
-  position: fixed;
-  z-index: 999;
+  background-color: #fff;
   top: 0;
   left: 0;
   right: 0;
@@ -14,6 +16,7 @@
 
 .inner {
   max-width: 800px;
+  min-height:50px;
   box-sizing: border-box;
   margin: 0px auto;
   padding: 15px 5px;
@@ -29,10 +32,10 @@
     letter-spacing: .075em;
     margin-right: 1.8em;
     &:hover {
-      color: #fff;
+      color: #81c14b;
     }
     &.active {
-      color: #fff;
+      color: #81c14b;
       font-weight: 400;
     }
     &:nth-child(6) {

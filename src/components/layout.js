@@ -1,21 +1,45 @@
 import React from 'react'
+import Auth from '../containers/auth'
+import { Flex, Box } from 'rebass'
+import Header from './header'
+import { connect } from 'react-redux'
+import { withRouter } from 'react-router'
 
-const Layout = (props) => {
-  return (
-    <div className="normal">
-      <div className="header">
-        <div className="inner">
-          
-          <span className="github">
-            Built with <a rel="noopener noreferrer" href="https://github.com/umijs/umi" target="_blank">Umi</a> and <a rel="noopener noreferrer" href="https://github.com/dvajs/dva" target="_blank">Dva</a>
-          </span>
-        </div>
-      </div>
-      <div className="view">
-        { props.children }
-      </div>
-    </div>
-  );
-};
+class Layout extends React.Component {
 
-export default Layout;
+  constructor(props) {
+    super(props)
+  }
+
+
+  render() {
+    return <React.Fragment>
+      <Header />
+      <Flex>
+        <Box
+          p={3}
+          width={'20%'}>
+          Flex
+        </Box>
+        <Box
+          p={3}
+          width={'80%'}
+          color='white'
+          bg='magenta'>
+          Box
+        </Box>
+      </Flex>   
+    </React.Fragment>  
+  }
+} 
+
+const Gate = (props) => {
+  return (props.auth.isAuth ? <Layout /> : <Auth />)
+}
+
+const mapStateToProps = ({ auth }) => ({
+  auth
+})
+
+
+export default withRouter(connect(mapStateToProps)(Gate))

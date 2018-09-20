@@ -9,8 +9,8 @@ import rootReducer from '../reducers'
 
 const History = createBrowserHistory()
 const eksi = new Eksi({
-    uri: 'xx',
-    client_secret: 'xxx'
+    uri: 'https://api.eksisozluk.com/',
+    client_secret: process.env.ClientSecret
 })
 
 const initialState = {}

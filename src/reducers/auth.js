@@ -1,31 +1,28 @@
-import { SET_AUTH_LOGIN, RESET_AUTH } from '../constants'
+import { SET_AUTH, RESET_AUTH } from '../constants'
+import { getStorage } from '../utils'
 
-const defaultState = {
-  username: '',
-  firstname: '',
-  lastname: '',
-  email: '',
-  token: '',
-  user_id: null,
-  role: 0,
-  isAuth: false
-}
+const auth = getStorage('auth')
+
+const defaultState = Object.assign(
+  {
+    access_token: '',
+    expires_in: '',
+    nick: '',
+    rank: '',
+    token_type: '',
+    user_id: '',
+    
+  },
+  auth,
+  {isAuth: (auth ? true : false)}
+)
+
+
 
 export default (state = defaultState, action = {}) => {
   switch (action.type) {
-    case SET_AUTH_LOGIN:
-      return {
-        ...state,
-        firstname: action.payload.user.firstname,
-        lastname: action.payload.user.lastname,
-        email: action.payload.user.email,
-        token: action.payload.token.api_token,
-        username: action.payload.user.username,
-        user_id: action.payload.user.user_id,
-        role: action.payload.user.user_group_id,
-        teams: action.payload.user.teams,
-        isAuth: true
-      }
+    case SET_AUTH:
+      return { ...state, ...action.payload, isAuth: true }
       break
       break
     case RESET_AUTH:
