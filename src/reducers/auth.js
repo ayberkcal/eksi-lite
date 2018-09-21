@@ -26,7 +26,7 @@ export default (state = defaultState, action = {}) => {
       break
       break
     case RESET_AUTH:
-      return state
+      return {...state, isAuth: false}
       break
     default:
       return state

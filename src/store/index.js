@@ -5,6 +5,7 @@ import Eksi from 'eksi'
 import logger from 'redux-logger'
 import createBrowserHistory from 'history/createBrowserHistory'
 import rootReducer from '../reducers'
+import { getStorage, setStorage } from '../utils'
 //import { ErrorTracker } from '../middlewares'
 
 const History = createBrowserHistory()
@@ -12,6 +13,14 @@ const eksi = new Eksi({
     uri: 'https://api.eksisozluk.com/',
     client_secret: process.env.ClientSecret
 })
+const auth = getStorage('auth')
+if (auth){
+  eksi.define(auth)
+}
+
+if (process.env.NODE_ENV != "production") {
+  window.eksi = eksi
+}
 
 const initialState = {}
 

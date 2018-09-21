@@ -3,15 +3,18 @@ import ReactDOM from 'react-dom'
 import { Store, History } from './store'
 import { ConnectedRouter } from 'react-router-redux'
 import { Provider } from 'react-redux'
+import 'antd/dist/antd.css'
 import './assets/css/index.scss'
-import Layout from './components/layout'
+import Gate from './components/gate'
 import App from './router'
 
 ReactDOM.render(
   <Provider store={Store}>
     <ConnectedRouter history={History}>
-      <Layout>
+      <Gate>
         <App />
-      </Layout>
+      </Gate>
     </ConnectedRouter>
-</Provider>, document.getElementById('app'))
+  </Provider>,
+  document.getElementById('app')
+)

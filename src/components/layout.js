@@ -1,45 +1,80 @@
 import React from 'react'
-import Auth from '../containers/auth'
-import { Flex, Box } from 'rebass'
-import Header from './header'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
+import * as loginActions from '../actions/login'
+import { bindActionCreators } from 'redux'
+import { Avatar, Badge, Popover, Divider } from 'antd'
 
 class Layout extends React.Component {
-
   constructor(props) {
     super(props)
   }
 
-
   render() {
-    return <React.Fragment>
-      <Header />
-      <Flex>
-        <Box
-          p={3}
-          width={'20%'}>
-          Flex
-        </Box>
-        <Box
-          p={3}
-          width={'80%'}
-          color='white'
-          bg='magenta'>
-          Box
-        </Box>
-      </Flex>   
-    </React.Fragment>  
+    return (
+      <div className="normal">
+        <div className="header">
+          <div className="inner">
+            <Link to="/">
+              <img
+                alt="presentation"
+                className="logo"
+                src="https://s3.eksiup.com/7ce863569735.png"
+              />
+            </Link>
+            <Link to="/gundem">Gündem</Link>
+            <Link to="/bugun">Bugün</Link>
+            <Link to="/gundem">Show</Link>
+            <Link to="/gundem">Ask</Link>
+            <Popover
+              placement="bottom"
+              content={
+                <React.Fragment>
+                  <Link to="/takip">Takip</Link>
+                </React.Fragment>
+              }
+            >
+              <span className="more"> ...</span>
+            </Popover>
+            <span className="user-dr">
+              <Popover
+                placement="bottom"
+                content={
+                  <React.Fragment>
+                    <p> Entrylerim </p>
+                    <p> Favorilerim </p>
+                    <p>
+                      Mesajlarım
+                      <Badge
+                        count={109}
+                        style={{ backgroundColor: '#52c41a', marginLeft: 5 }}
+                      />
+                    </p>
+                    <p onClick={() => this.props.loginActions.resetAuth()}>
+                      Çıkış Yap
+                    </p>
+                  </React.Fragment>
+                }
+                trigger="click"
+              >
+                <Badge dot>
+                  <Avatar>U</Avatar>
+                </Badge>
+              </Popover>
+            </span>
+          </div>
+        </div>
+        <div className="view">{this.props.children}</div>
+      </div>
+    )
   }
-} 
-
-const Gate = (props) => {
-  return (props.auth.isAuth ? <Layout /> : <Auth />)
 }
 
-const mapStateToProps = ({ auth }) => ({
-  auth
+const mapDispatchToProps = (dispatch) => ({
+  loginActions: bindActionCreators(loginActions, dispatch)
 })
 
-
-export default withRouter(connect(mapStateToProps)(Gate))
+export default connect(
+  null,
+  mapDispatchToProps
+)(Layout)

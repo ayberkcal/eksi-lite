@@ -1,46 +1,91 @@
 import React from 'react'
-import { Flex, Card, Text, Image } from 'rebass'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
+import { Formik } from 'formik'
+import { Checkbox, Input, Button } from 'antd'
 import * as loginActions from '../actions/login'
 
-class Auth extends React.Component {
+const Auth = (props) => {
+  return (
+    <Formik
+      actions={props.loginActions}
+      initialValues={{ username: '', password: '', remember: false }}
+      validate={(values) => {
+        let errors = {}
+        if (!values.username) {
+          errors.username = 'Gerekli Alan'
+        }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-        username: '',
-        password: ''
-    }
-  }
+        if (!values.password) {
+          errors.password = 'Gerekli Alan'
+        }
 
-  render() {
-    
-    const { loginActions } = this.props
+        return errors
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        props.loginActions.loginSubmit(values)
+        setTimeout(() => {
+          setSubmitting(false)
+        }, 1000)
+      }}
+    >
+      {({
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting
+      }) => (
+        <form onSubmit={handleSubmit} className="auth-form">
+          <Input
+            placeholder="Kullanıcı Adınız"
+            type="text"
+            name="username"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.username}
+          />
+          <div className="field-error">
+            {errors.username && touched.username && errors.username}
+          </div>
+          <Input
+            placeholder="Şifreniz"
+            type="text"
+            type="password"
+            name="password"
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.password}
+          />
 
-    return(
-      <Flex>
-            <Card
-                width={[ 356, 420 ]}
-                mx='auto'
-                p={3}
-                variant='basic'>
-                
-                <input type="text" defaultValue={this.state.username} onChange={(e) => this.setState({ username: e.target.value})} />
-                <input type="password" defaultValue={this.state.password} onChange={(e) => this.setState({ password: e.target.value})} />
-                <br/>
-                <button onClick={() => loginActions.loginSubmit(this.state)}> Giriş Yap </button>
-            </Card>
-    </Flex>
-    ) 
-          
-  }
-} 
+          <div className="field-error">
+            {errors.password && touched.password && errors.password}{' '}
+          </div>
+          <Checkbox
+            name="remember"
+            value={values.remember}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          >
+            Beni Hatırla
+          </Checkbox> 
 
+          <Button type="primary" htmlType="submit" disabled={isSubmitting} block>
+            Giriş Yap
+          </Button>
+        </form>
+      )}
+    </Formik>
+  )
+}
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   loginActions: bindActionCreators(loginActions, dispatch)
 })
 
-export default connect(null, mapDispatchToProps)(Auth)
+export default connect(
+  null,
+  mapDispatchToProps
+)(Auth)
