@@ -7,7 +7,7 @@ import Auth from '../containers/auth'
 const Gate = (props) => {
           
     return <React.Fragment>
-        {props.auth.isAuth ? <Layout /> : <Auth />}
+        {props.auth.isAuth ? <Layout {...props} /> : <Auth {...props} />}
       </React.Fragment>
 }
 

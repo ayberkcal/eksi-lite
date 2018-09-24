@@ -34,22 +34,19 @@ class Layout extends React.Component {
                 </React.Fragment>
               }
             >
-              <span className="more"> ...</span>
+            <span className="more">...</span>
             </Popover>
             <span className="user-dr">
               <Popover
                 placement="bottom"
                 content={
                   <React.Fragment>
-                    <p> Entrylerim </p>
-                    <p> Favorilerim </p>
-                    <p>
-                      Mesajlarım
-                      <Badge
-                        count={109}
-                        style={{ backgroundColor: '#52c41a', marginLeft: 5 }}
-                      />
-                    </p>
+                    <p><Link to="/profile">Profilim</Link></p>
+                    <p><Link to="/profile/entrys">Entrylerim</Link></p>
+                    <p><Link to="/profile/favorites">Favorilerim</Link></p>
+                    <p><Badge dot>
+                      <Link to="/profile/messages">Mesajlarım</Link>
+                    </Badge></p>
                     <p onClick={() => this.props.loginActions.resetAuth()}>
                       Çıkış Yap
                     </p>

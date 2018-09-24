@@ -1,7 +1,7 @@
 import { SET_AUTH, RESET_AUTH } from '../constants'
-import { getStorage } from '../utils'
+import { persist } from '../utils'
 
-const auth = getStorage('auth')
+const auth = persist.getSyncValue('auth')
 
 const defaultState = Object.assign(
   {

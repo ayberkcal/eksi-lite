@@ -1,14 +1,14 @@
 import { SET_AUTH, RESET_AUTH } from '../constants'
-import { getStorage, setStorage } from '../utils'
+import { persist } from '../utils'
 import { notification } from 'antd'
 
 export function setAuth(payload, extra) {
   return async (dispatch, getState, eksi) => {
-    await setStorage('auth', payload)
     eksi.define(payload)
+    await persist.setValue('auth', payload)
 
     if (extra) {
-      setStorage('remember', extra)
+      await persist.setValue('remember', extra)
     }
 
     dispatch({ type: SET_AUTH, payload })
@@ -17,8 +17,8 @@ export function setAuth(payload, extra) {
 
 export function resetAuth() {
   return async(dispatch, getState) => {
-    await setStorage('auth', {})  
-    await setStorage('remember', {})    
+    await persist.remove('auth')  
+    await persist.remove('remember')    
     dispatch({ type: RESET_AUTH })
   }
 }

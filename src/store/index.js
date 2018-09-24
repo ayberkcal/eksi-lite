@@ -3,17 +3,19 @@ import { routerMiddleware } from 'react-router-redux'
 import ReduxThunk from 'redux-thunk'
 import Eksi from 'eksi'
 import logger from 'redux-logger'
-import createBrowserHistory from 'history/createBrowserHistory'
+import createHashHistory from 'history/createHashHistory'
 import rootReducer from '../reducers'
-import { getStorage, setStorage } from '../utils'
+import { persist } from '../utils'
 //import { ErrorTracker } from '../middlewares'
 
-const History = createBrowserHistory()
+const History = createHashHistory()
+
 const eksi = new Eksi({
     uri: 'https://api.eksisozluk.com/',
     client_secret: process.env.ClientSecret
 })
-const auth = getStorage('auth')
+
+const auth = persist.getSyncValue('auth')
 if (auth){
   eksi.define(auth)
 }
@@ -22,11 +24,12 @@ if (process.env.NODE_ENV != "production") {
   window.eksi = eksi
 }
 
-const initialState = {}
+const initialState = {} //persist.getStore()
 
 const middleware = [
   routerMiddleware(History),
-  ReduxThunk.withExtraArgument(eksi)
+  ReduxThunk.withExtraArgument(eksi),
+  persist.getMiddleware()
 ]
 
 if(process.env.NODE_ENV != "production"){
