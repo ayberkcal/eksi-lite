@@ -1,6 +1,6 @@
 const webpack = require('webpack');
-const merge = require('webpack-merge');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+const merge = require('webpack-merge'); 
+const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const common = require('./webpack.common.js');
@@ -15,21 +15,21 @@ module.exports = merge(common, {
     chunks: true,
     chunkModules: true,
     modules: true,
-    children: true,
+    children: true
   },
   optimization: {
     minimizer: [
-      new UglifyJSPlugin({
+      new TerserPlugin({
         sourceMap: true,
-        uglifyOptions: {
-          ecma:8,
+        terserOptions: {
+          ecma: 8,
           compress: {
             inline: false,
             warnings: false
           }
         }
       }),
-      new OptimizeCSSAssetsPlugin({}),
+      new OptimizeCSSAssetsPlugin({})
     ],
     runtimeChunk: false,
     splitChunks: {
@@ -55,7 +55,7 @@ module.exports = merge(common, {
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
         ClientSecret: JSON.stringify(process.env.ClientSecret)
-      },
-    }),
-  ],
-});
+      }
+    })
+  ]
+})

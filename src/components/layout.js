@@ -8,12 +8,7 @@ import asyncComponent from '../containers/asyncComponent'
 const HeaderUser = asyncComponent(() => import('../containers/header_user'))
 const Channels = asyncComponent(() => import('../containers/channels'))
 
-class Layout extends React.Component {
-  constructor(props) {
-    super(props)
-  }
-
-  render() {
+export default (props) => {
     return (
       <div className="normal">
         <div className="header">
@@ -37,17 +32,9 @@ class Layout extends React.Component {
             </span>
           </div>
         </div>
-        <div className="view">{this.props.children}</div>
+        <div className="view">{props.children}</div>
       </div>
     )
-  }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  loginActions: bindActionCreators(loginActions, dispatch)
-})
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Layout)
+// todo: children
