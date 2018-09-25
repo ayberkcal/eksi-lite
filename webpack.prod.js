@@ -31,7 +31,6 @@ module.exports = merge(common, {
       }),
       new OptimizeCSSAssetsPlugin({})
     ],
-    runtimeChunk: false,
     splitChunks: {
       cacheGroups: {
         default: false,
@@ -39,13 +38,14 @@ module.exports = merge(common, {
           name: 'styles',
           test: /\.css$/,
           chunks: 'all',
+          priority: 2000,
           enforce: true
         },
-        commons: {
-          test: /[\\/]node_modules[\\/]/,
-          name: 'vendor_app',
-          chunks: 'all',
-          minChunks: 2
+        vendor: {
+          test: /node_modules/, // you may add "vendor.js" here if you want to
+          name: 'vendor',
+          chunks: 'initial',
+          enforce: true
         }
       }
     }

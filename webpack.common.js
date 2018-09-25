@@ -9,6 +9,10 @@ module.exports = {
   entry: {
     app: './src/app.js'
   },
+  output: {
+    filename: '[name].[hash].js',
+    path: path.resolve('./dist')
+  },
   module: {
     rules: [
       {
@@ -20,22 +24,16 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        include: [
-          'src'
-        ],
-        use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader"
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.s?[ac]ss$/,
         use: [
           devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
           'css-loader',
-          'sass-loader',
-        ],
-      },
+          'sass-loader'
+        ]
+      }
     ]
   },
   plugins: [
