@@ -66,11 +66,8 @@ a {
   }
 
   .more{
-    background-color: #fff;
-    border-radius: 3px;
-    color: #000;
-    cursor: pointer; 
-    display: inline;
+    color: #fff;
+    cursor: pointer;
   }
 }
 
@@ -156,3 +153,6 @@ a {
   }
 }
 
+.ant-divider-horizontal{
+  margin:0 auto 0 0 !important
+}

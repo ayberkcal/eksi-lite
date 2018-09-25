@@ -1,8 +1,7 @@
 //import asyncComponent from '../containers/asyncComponent'
 
-import NotFound from '../components/notfound'
-import Profile from '../containers/profile'
-import User from '../containers/user'
-import Home from '../components/home'
+export NotFound from '../components/notfound'
+export Profile from '../containers/profile'
+export User from '../containers/user'
+export Home from '../components/home'
 
-export { NotFound, Profile, User, Home }

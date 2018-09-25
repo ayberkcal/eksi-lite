@@ -1,9 +1,14 @@
-import React, { Component, PureComponent } from 'react'
+import React, { PureComponent } from 'react'
 import { connect } from 'react-redux'
-import { Loader } from './../../component/loader'
+import Loader from './../../components/loader'
 import { asyncContentLoading, asyncContentLoaded } from './../../actions/async'
 
-const asyncComponent = (getComponent, Loading = <Loader />) => {
+
+
+const asyncComponent = (
+  getComponent,
+  Loading = <Loader />
+) => {
   class AsyncComponent extends PureComponent {
     static Component = null
     static async loadComponent() {
@@ -48,7 +53,10 @@ const asyncComponent = (getComponent, Loading = <Loader />) => {
     }
   }
 
-  return connect(null, { asyncContentLoaded, asyncContentLoading })(AsyncComponent)
+  return connect(
+    null,
+    { asyncContentLoaded, asyncContentLoading }
+  )(AsyncComponent)
 }
 
 export default asyncComponent

@@ -4,12 +4,14 @@ import { combineReducers } from 'redux'
 import auth from './auth'
 import me from './me'
 import user from './user'
+import channels from './channels'
 
 const appReducer = combineReducers({
   routing,
   auth,
   me,
-  user
+  user,
+  channels
 })
 
 const rootReducer = (state, action) => {

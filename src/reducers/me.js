@@ -1,4 +1,9 @@
-import { SET_ME, RESET_ME } from '../constants'
+import {
+  SET_ME,
+  RESET_ME,
+  MESSAGE_COUNT_SET,
+  EVENT_COUNT_SET
+} from '../constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
 
 const defaultState = {
@@ -14,7 +19,9 @@ const defaultState = {
   hasEntryUsedOnSeyler: 0,
   caylak: false,
   banned: false,
-  badges: []
+  badges: [],
+  messageCount: 0,
+  eventCount: 0
 }
 
 export default (state = defaultState, action = {}) => {
@@ -37,6 +44,13 @@ export default (state = defaultState, action = {}) => {
         badges: action.payload.Badges
       }
       break
+
+    case MESSAGE_COUNT_SET:
+      return { ...state, messageCount: action.payload }
+      break
+    case EVENT_COUNT_SET:
+      return { ...state, eventCount: action.payload }
+      break
     case LOCATION_CHANGE:
     case RESET_ME:
       return defaultState
@@ -45,3 +59,8 @@ export default (state = defaultState, action = {}) => {
       return state
   }
 }
+
+
+export const nameCharacterSelector = (state) => state.auth.nick
+           .charAt(0)
+           .toUpperCase() 

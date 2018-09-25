@@ -4,6 +4,9 @@ import { connect } from 'react-redux'
 import * as loginActions from '../actions/login'
 import { bindActionCreators } from 'redux'
 import { Avatar, Badge, Popover, Divider } from 'antd'
+import asyncComponent from '../containers/asyncComponent'
+const HeaderUser = asyncComponent(() => import('../containers/header_user'))
+const Channels = asyncComponent(() => import('../containers/channels'))
 
 class Layout extends React.Component {
   constructor(props) {
@@ -26,38 +29,11 @@ class Layout extends React.Component {
             <Link to="/bugun">Bugün</Link>
             <Link to="/gundem">Show</Link>
             <Link to="/gundem">Ask</Link>
-            <Popover
-              placement="bottom"
-              content={
-                <React.Fragment>
-                  <Link to="/takip">Takip</Link>
-                </React.Fragment>
-              }
-            >
-            <span className="more">...</span>
+            <Popover placement="bottom" content={<Channels />}>
+              <span className="more">•••</span>
             </Popover>
             <span className="user-dr">
-              <Popover
-                placement="bottom"
-                content={
-                  <React.Fragment>
-                    <p><Link to="/profile">Profilim</Link></p>
-                    <p><Link to="/profile/entrys">Entrylerim</Link></p>
-                    <p><Link to="/profile/favorites">Favorilerim</Link></p>
-                    <p><Badge dot>
-                      <Link to="/profile/messages">Mesajlarım</Link>
-                    </Badge></p>
-                    <p onClick={() => this.props.loginActions.resetAuth()}>
-                      Çıkış Yap
-                    </p>
-                  </React.Fragment>
-                }
-                trigger="click"
-              >
-                <Badge dot>
-                  <Avatar>U</Avatar>
-                </Badge>
-              </Popover>
+              <HeaderUser />
             </span>
           </div>
         </div>

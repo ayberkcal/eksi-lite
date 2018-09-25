@@ -1,5 +1,5 @@
 //import { setErrorMessage } from '../actions/error'
-//import { resetLogin } from '../actions/login'
+import { setMessageCount, setEventCount } from '../actions/my'
 
 const ErrorTracker = ({ dispatch, getState }) => next => async action => {
   try {
@@ -23,4 +23,42 @@ const ErrorTracker = ({ dispatch, getState }) => next => async action => {
   }
 }
 
-export { ErrorTracker }
+let messageCountTicker = null
+let eventCountTicker = null
+
+const WatcherCount = (eksi) => ({dispatch, getState}) => next => async action => {
+
+  if (eksi.env && !messageCountTicker){
+
+    messageCountTicker = setInterval(async () => {
+      try {
+        let response = await eksi.getMyUnreadMessagesCount()
+        if (response.data) {
+          dispatch(setMessageCount(response.data))
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }, 50000)
+
+  }
+
+  if (eksi.env && !eventCountTicker) {
+    eventCountTicker = setInterval(async () => {
+      try {
+        let response = await eksi.getMyUnreadTopicsCount()
+        if (response.data) {
+          dispatch(setEventCount(response.data))
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    }, 50000)
+  }
+
+ await next(action)
+
+}
+
+
+export { ErrorTracker, WatcherCount }
