@@ -22,8 +22,10 @@ module.exports = merge(common, {
       new UglifyJSPlugin({
         sourceMap: true,
         uglifyOptions: {
+          ecma:8,
           compress: {
-            inline: false
+            inline: false,
+            warnings: false
           }
         }
       }),
