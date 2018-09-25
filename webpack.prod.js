@@ -8,7 +8,7 @@ const common = require('./webpack.common.js');
 module.exports = merge(common, {
   mode: 'production',
   stats: {
-    colors: true,
+    colors: false,
     hash: true,
     timings: true,
     assets: true,
