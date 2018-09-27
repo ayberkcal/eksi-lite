@@ -47,7 +47,8 @@ module.exports = {
       chunkFilename: devMode ? '[id].css' : '[id].[hash].css'
     }),
     new webpack.DefinePlugin({
-      'process.env.ClientSecret': JSON.stringify(process.env.ClientSecret)
+      'process.env.ClientSecret': JSON.stringify(process.env.ClientSecret),
+      'process.env.ClientURL': JSON.stringify(process.env.ClientURL)
     })
   ]
 }

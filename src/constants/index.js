@@ -12,6 +12,10 @@ export const SET_ME = 'SET_ME'
 export const RESET_ME = 'RESET_ME'
 export const MESSAGE_COUNT_SET = 'MESSAGE_COUNT_SET'
 export const EVENT_COUNT_SET = 'EVENT_COUNT_SET'
+export const SET_FAVORITES = 'SET_FAVORITES'
+export const RESET_FAVORITES = 'RESET_FAVORITES'
+export const SET_ENTRYS = 'SET_ENTRYS'
+export const RESET_ENTRYS = 'RESET_ENTRYS'
 
 // User
 export const SET_USER = 'SET_USER'

@@ -11,41 +11,41 @@ import { WatcherCount } from '../middlewares'
 const History = createHashHistory()
 
 const eksi = new Eksi({
-    uri: 'https://api.eksisozluk.com/',
-    client_secret: process.env.ClientSecret
+  uri: process.env.ClientURL,
+  client_secret: process.env.ClientSecret
 })
 
 const auth = persist.getSyncValue('auth')
-if (auth){
+if (auth) {
   eksi.define(auth)
 }
 
-if (process.env.NODE_ENV != "production") {
+if (process.env.NODE_ENV != 'production') {
   window.eksi = eksi
 }
 
-const initialState = {} //persist.getStore()
+const initialState = persist.getStore()
 
 const middleware = [
   routerMiddleware(History),
-  WatcherCount(eksi),
+  WatcherCount(),
   ReduxThunk.withExtraArgument(eksi),
-  persist.getMiddleware()  
+  persist.getMiddleware()
 ]
 
-if(process.env.NODE_ENV != "production"){
-  middleware.push(logger)                
+if (process.env.NODE_ENV != 'production') {
+  middleware.push(logger)
 }
 
-const composeEnhancers = 
-process.env.NODE_ENV != "production"
-  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-  : compose
+const composeEnhancers =
+  process.env.NODE_ENV != 'production'
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+    : compose
 
 const Store = createStore(
-    rootReducer,
-    initialState,
-    composeEnhancers(applyMiddleware(...middleware))
+  rootReducer,
+  initialState,
+  composeEnhancers(applyMiddleware(...middleware))
 )
-  
+
 export { Store, History }

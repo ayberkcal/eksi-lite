@@ -1,3 +1,4 @@
+import equal from 'deep-equal'
 
 export default class PersistStore {
 
@@ -66,7 +67,11 @@ export default class PersistStore {
     getStore(){
         let store = {}
         this.whiteList.forEach( item => {
-            store[`${item.target}`] = this.getSyncValue(item.key)
+            const value = this.getSyncValue(item.key)
+            if (value){
+                store[`${item.target}`] = this.getSyncValue(item.key)
+            }
+            
         })
 
         return store
@@ -75,15 +80,16 @@ export default class PersistStore {
     getMiddleware(){
         return ({ dispatch, getState }) => next => async action => { 
             const store = getState()
-            const persistKeys = this.getKeys()
-            //const keys = Object.keys(store).filter( key => {
-            //    return persistKeys.includes(key)
-            //})
 
-            //console.log(keys)
-            //keys.forEach(key => {
-            //    
-            //})
+            const persistKeys = this.getKeys().forEach(key => {
+                if (store.hasOwnProperty(key)){
+                    if (!equal(store[key], this.getSyncValue(key))) {
+                        this.setSyncValue(key, store[key])
+                        console.log('SYNC')
+                    }
+                    
+                }
+            })
 
             next(action)
         }

@@ -27,8 +27,8 @@ let messageCountTicker = null
 let eventCountTicker = null
 
 const WatcherCount = (eksi) => ({dispatch, getState}) => next => async action => {
-
-  if (eksi.env && !messageCountTicker){
+  const store = getState()
+  if (store.auth.isAuth && !messageCountTicker){
 
     messageCountTicker = setInterval(async () => {
       try {
@@ -43,7 +43,7 @@ const WatcherCount = (eksi) => ({dispatch, getState}) => next => async action =>
 
   }
 
-  if (eksi.env && !eventCountTicker) {
+  if (store.auth.isAuth && !eventCountTicker) {
     eventCountTicker = setInterval(async () => {
       try {
         let response = await eksi.getMyUnreadTopicsCount()

@@ -1,7 +1,4 @@
 import { SET_AUTH, RESET_AUTH } from '../constants'
-import { persist } from '../utils'
-
-const auth = persist.getSyncValue('auth')
 
 const defaultState = Object.assign(
   {
@@ -11,10 +8,8 @@ const defaultState = Object.assign(
     rank: '',
     token_type: '',
     user_id: '',
-    
-  },
-  auth,
-  {isAuth: (auth ? true : false)}
+    isAuth: false 
+  }
 )
 
 

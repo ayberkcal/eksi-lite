@@ -5,7 +5,6 @@ import { notification } from 'antd'
 export function setAuth(payload, extra) {
   return async (dispatch, getState, eksi) => {
     eksi.define(payload)
-    await persist.setValue('auth', payload)
 
     if (extra) {
       await persist.setValue('remember', extra)
@@ -17,8 +16,6 @@ export function setAuth(payload, extra) {
 
 export function resetAuth() {
   return async(dispatch, getState) => {
-    await persist.remove('auth')  
-    await persist.remove('remember')    
     dispatch({ type: RESET_AUTH })
   }
 }

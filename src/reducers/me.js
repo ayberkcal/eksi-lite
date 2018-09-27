@@ -2,11 +2,16 @@ import {
   SET_ME,
   RESET_ME,
   MESSAGE_COUNT_SET,
-  EVENT_COUNT_SET
+  EVENT_COUNT_SET,
+  SET_FAVORITES,
+  RESET_FAVORITES,
+  SET_ENTRYS,
+  RESET_ENTRYS
 } from '../constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
+import { combineReducers } from 'redux'
 
-const defaultState = {
+const infoDefaultState = {
   entryCounts: {},
   user_id: '',
   facebook: '',
@@ -24,7 +29,7 @@ const defaultState = {
   eventCount: 0
 }
 
-export default (state = defaultState, action = {}) => {
+const info = (state = infoDefaultState, action = {}) => {
   switch (action.type) {
     case SET_ME:
       return {
@@ -53,14 +58,56 @@ export default (state = defaultState, action = {}) => {
       break
     case LOCATION_CHANGE:
     case RESET_ME:
-      return defaultState
+      return infoDefaultState
       break
     default:
       return state
   }
 }
 
+const favDefaultState = {
+  data: [],
+  page: 1
+}
 
-export const nameCharacterSelector = (state) => state.auth.nick
-           .charAt(0)
-           .toUpperCase() 
+const favorites = (state = favDefaultState, action = {}) => {
+  switch (action.type) {
+    case SET_FAVORITES:
+      return { ...state, data: action.payload }
+      break
+    case LOCATION_CHANGE:
+    case RESET_FAVORITES:
+      return favDefaultState
+      break
+    default:
+      return state
+  }
+}
+
+const entrysDefaultState = {
+  data: [],
+  page: 1
+}
+
+const entrys = (state = entrysDefaultState, action = {}) => {
+  switch (action.type) {
+    case SET_ENTRYS:
+      return { ...state, data: action.payload }
+      break
+    case LOCATION_CHANGE:
+    case RESET_ENTRYS:
+      return entrysDefaultState
+      break
+    default:
+      return state
+  }
+}
+
+export default combineReducers({
+  info,
+  favorites,
+  entrys
+})
+
+export const nameCharacterSelector = (state) =>
+  state.auth.nick.charAt(0).toUpperCase()

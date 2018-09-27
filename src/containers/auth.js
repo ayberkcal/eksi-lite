@@ -2,8 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Formik } from 'formik'
-import { Checkbox, Input, Button } from 'antd'
+import { Checkbox, Input, Button, Form } from 'antd'
 import * as loginActions from '../actions/login'
+const FormItem = Form.Item
 
 const Auth = (props) => {
   return (
@@ -23,10 +24,7 @@ const Auth = (props) => {
         return errors
       }}
       onSubmit={(values, { setSubmitting }) => {
-        props.loginActions.loginSubmit(values)
-        setTimeout(() => {
-          setSubmitting(false)
-        }, 1000)
+        props.loginActions.loginSubmit(values).then(() => setSubmitting(false))
       }}
     >
       {({
@@ -39,40 +37,49 @@ const Auth = (props) => {
         isSubmitting
       }) => (
         <form onSubmit={handleSubmit} className="auth-form">
-          <Input
-            placeholder="Kullanıcı Adınız"
-            type="text"
-            name="username"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.username}
-          />
-          <div className="field-error">
-            {errors.username && touched.username && errors.username}
-          </div>
-          <Input
-            placeholder="Şifreniz"
-            type="text"
-            type="password"
-            name="password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.password}
-          />
-
-          <div className="field-error">
-            {errors.password && touched.password && errors.password}{' '}
-          </div>
-          <Checkbox
-            name="remember"
-            value={values.remember}
-            onChange={handleChange}
-            onBlur={handleBlur}
+          <FormItem
+            validateStatus={errors.username && touched.username ? 'error' : ''}
+            help={errors.username && touched.username ? 'Gerekli Alan' : null}
           >
-            Beni Hatırla
-          </Checkbox> 
-
-          <Button type="primary" htmlType="submit" disabled={isSubmitting} block>
+            <Input
+              placeholder="Kullanıcı Adınız"
+              type="text"
+              name="username"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.username}
+            />
+          </FormItem>
+          <FormItem
+            validateStatus={errors.password && touched.password ? 'error' : ''}
+            help={errors.password && touched.password ? 'Gerekli Alan' : null}
+          >
+            <Input
+              placeholder="Şifreniz"
+              type="text"
+              type="password"
+              name="password"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
+          </FormItem>
+          <FormItem>
+            <Checkbox
+              name="remember"
+              value={values.remember}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            >
+              Beni Hatırla
+            </Checkbox>
+          </FormItem>
+          <Button
+            type="primary"
+            htmlType="submit"
+            disabled={isSubmitting}
+            block
+          >
             Giriş Yap
           </Button>
         </form>
