@@ -67,13 +67,20 @@ const info = (state = infoDefaultState, action = {}) => {
 
 const favDefaultState = {
   data: [],
-  page: 1
+  page: 1,
+  pageTotal: 0,
+  pageSize: 0
 }
 
 const favorites = (state = favDefaultState, action = {}) => {
   switch (action.type) {
     case SET_FAVORITES:
-      return { ...state, data: action.payload }
+      return {
+        ...state,
+        data: [...state.data, ...action.payload.Entries],
+        page: action.payload.pageIndex,
+        pageTotal: action.payload.PageCount
+      }
       break
     case LOCATION_CHANGE:
     case RESET_FAVORITES:
@@ -86,13 +93,20 @@ const favorites = (state = favDefaultState, action = {}) => {
 
 const entrysDefaultState = {
   data: [],
-  page: 1
+  page: 1,
+  pageTotal: 0,
+  pageSize: 0
 }
 
 const entrys = (state = entrysDefaultState, action = {}) => {
   switch (action.type) {
     case SET_ENTRYS:
-      return { ...state, data: action.payload }
+      return {
+        ...state,
+        data: [...state.data, ...action.payload.Entries],
+        page: action.payload.pageIndex,
+        pageTotal: action.payload.PageCount
+      }
       break
     case LOCATION_CHANGE:
     case RESET_ENTRYS:
@@ -109,5 +123,11 @@ export default combineReducers({
   entrys
 })
 
+export const entryListSelector = (state) => state.me.entrys.data
+export const favsListSelector = (state) => state.me.favorites.data
+export const fetchedFavsSelector = (state) =>
+  state.me.favorites.data.length > 0 ? true : false
+export const fetchedEntrySelector = (state) =>
+  state.me.entrys.data.length > 0 ? true : false
 export const nameCharacterSelector = (state) =>
   state.auth.nick.charAt(0).toUpperCase()

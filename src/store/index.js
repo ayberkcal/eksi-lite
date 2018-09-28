@@ -28,7 +28,7 @@ const initialState = persist.getStore()
 
 const middleware = [
   routerMiddleware(History),
-  WatcherCount(),
+  WatcherCount(eksi),
   ReduxThunk.withExtraArgument(eksi),
   persist.getMiddleware()
 ]

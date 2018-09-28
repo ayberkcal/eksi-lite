@@ -51,9 +51,9 @@ export function setEntrys(payload, extra) {
   }
 }
 
-export function getEntrys(state) {
+export function getEntrys(state = {}) {
   return async (dispatch, getState, eksi) => {
-    const response = await eksi.getMyEntrys()
+    const response = await eksi.getMyEntrys(state)
     dispatch(setEntrys(response.data))
   }
 }
