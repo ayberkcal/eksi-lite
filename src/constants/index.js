@@ -20,6 +20,10 @@ export const RESET_ENTRYS = 'RESET_ENTRYS'
 // User
 export const SET_USER = 'SET_USER'
 export const RESET_USER = 'RESET_USER'
+export const SET_USER_FAVORITES = 'SET_USER_FAVORITES'
+export const RESET_USER_FAVORITES = 'RESET_USER_FAVORITES'
+export const SET_USER_ENTRYS = 'SET_USER_ENTRYS'
+export const RESET_USER_ENTRYS = 'RESET_USER_ENTRYS'
 
 // Channels
 export const SET_CHANNELS = 'SET_CHANNELS'

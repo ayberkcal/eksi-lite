@@ -42,7 +42,7 @@ module.exports = merge(common, {
           enforce: true
         },
         vendor: {
-          test: /node_modules/, // you may add "vendor.js" here if you want to
+          test: /node_modules/,
           name: 'vendor',
           chunks: 'initial',
           enforce: true

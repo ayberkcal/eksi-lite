@@ -15,6 +15,10 @@ export function setStorage(key, data) {
   localStorage.setItem(`${key}`, JSON.stringify(data))
 }
 
+export function Brackets(text){
+  return text.replace(/\[.*?\]/g, '')
+}
+
 export const persist = new persistStore({
   whiteList: [
     {

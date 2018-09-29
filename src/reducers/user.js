@@ -1,5 +1,13 @@
-import { SET_USER, RESET_USER } from '../constants'
+import {
+  SET_USER,
+  RESET_USER,
+  SET_USER_FAVORITES,
+  RESET_USER_FAVORITES,
+  SET_USER_ENTRYS,
+  RESET_USER_ENTRYS
+} from '../constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
+import { combineReducers } from 'redux'
 
 const defaultState = {
   entryCounts: {},
@@ -19,7 +27,7 @@ const defaultState = {
   badges: []
 }
 
-export default (state = defaultState, action = {}) => {
+const info = (state = defaultState, action = {}) => {
   switch (action.type) {
     case SET_USER:
       return {
@@ -49,3 +57,70 @@ export default (state = defaultState, action = {}) => {
       return state
   }
 }
+
+const favDefaultState = {
+  data: [],
+  page: 1,
+  pageTotal: 0,
+  pageSize: 0
+}
+
+const favorites = (state = favDefaultState, action = {}) => {
+  switch (action.type) {
+    case SET_USER_FAVORITES:
+      return {
+        ...state,
+        data: [...state.data, ...action.payload.Entries],
+        page: action.payload.pageIndex,
+        pageTotal: action.payload.PageCount
+      }
+      break
+    case LOCATION_CHANGE:
+    case RESET_USER_FAVORITES:
+      return favDefaultState
+      break
+    default:
+      return state
+  }
+}
+
+const entrysDefaultState = {
+  data: [],
+  page: 1,
+  pageTotal: 0,
+  pageSize: 0
+}
+
+const entrys = (state = entrysDefaultState, action = {}) => {
+  switch (action.type) {
+    case SET_USER_ENTRYS:
+      return {
+        ...state,
+        data: [...state.data, ...action.payload.Entries],
+        page: action.payload.pageIndex,
+        pageTotal: action.payload.PageCount
+      }
+      break
+    case LOCATION_CHANGE:
+    case RESET_USER_ENTRYS:
+      return entrysDefaultState
+      break
+    default:
+      return state
+  }
+}
+
+export default combineReducers({
+  info,
+  favorites,
+  entrys
+})
+
+export const entryListSelector = (state) => state.user.entrys.data
+export const favsListSelector = (state) => state.user.favorites.data
+export const fetchedFavsSelector = (state) =>
+  state.user.favorites.data.length > 0 ? true : false
+export const fetchedEntrySelector = (state) => (state.user.entrys.data.length > 0 ? true : false)
+export const userfetchedSelector = (state) => state.user.info.user_id != '' ? true : false
+export const nameCharacterSelector = (state) =>
+  state.user.info.nick.charAt(0).toUpperCase()

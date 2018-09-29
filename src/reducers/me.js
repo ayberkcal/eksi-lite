@@ -56,7 +56,7 @@ const info = (state = infoDefaultState, action = {}) => {
     case EVENT_COUNT_SET:
       return { ...state, eventCount: action.payload }
       break
-    case LOCATION_CHANGE:
+    //case LOCATION_CHANGE:
     case RESET_ME:
       return infoDefaultState
       break
@@ -129,5 +129,6 @@ export const fetchedFavsSelector = (state) =>
   state.me.favorites.data.length > 0 ? true : false
 export const fetchedEntrySelector = (state) =>
   state.me.entrys.data.length > 0 ? true : false
+export const mefetchedSelector = (state) => state.me.info.user_id != '' ? true : false
 export const nameCharacterSelector = (state) =>
   state.auth.nick.charAt(0).toUpperCase()

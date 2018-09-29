@@ -20,10 +20,10 @@ export default (props) => {
                 src="https://s3.eksiup.com/7ce863569735.png"
               />
             </Link>
-            <Link to="/gundem">Gündem</Link>
-            <Link to="/bugun">Bugün</Link>
-            <Link to="/gundem">Show</Link>
-            <Link to="/gundem">Ask</Link>
+            <div className="nav-links">
+              <Link to="/gundem">Gündem</Link>
+              <Link to="/bugun">Bugün</Link>
+            </div>
             <Popover placement="bottom" content={<Channels />}>
               <span className="more">•••</span>
             </Popover>

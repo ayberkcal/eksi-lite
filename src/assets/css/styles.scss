@@ -34,6 +34,10 @@ a {
   margin: 0px auto;
   padding: 15px 5px;
 
+  .nav-links{
+    display: inline-block;
+  }
+
   a {
     color: rgba(255, 255, 255, .8);
 
@@ -103,8 +107,9 @@ a {
     a {
       margin-right: 1em;
     }
+
     .user-dr{
-      display: none;
+      margin-right:5px;
     }
   }
 }
@@ -162,6 +167,10 @@ a {
     list-style-type: none;
     padding: 0;
     margin-top:0.5em;
+
+    span{
+      margin-right:5px;
+    }
   }
 
   .meta-socials{

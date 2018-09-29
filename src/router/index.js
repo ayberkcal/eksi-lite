@@ -6,7 +6,9 @@ import {
   User,
   Home,
   MyEntrys,
-  MyFavorites
+  MyFavorites,
+  UserEntrys,
+  UserFavorites
 } from './components'
 
 const App = () => (
@@ -16,6 +18,8 @@ const App = () => (
     <Route exact path="/profile/entrys" component={MyEntrys} />
     <Route exact path="/profile/favorites" component={MyFavorites} />
     <Route exact path="/user/:nick" component={User} />
+    <Route exact path="/user/:nick/entrys" component={UserEntrys} />
+    <Route exact path="/user/:nick/favorites" component={UserFavorites} />
     <Route component={NotFound} />
   </Switch>
 )

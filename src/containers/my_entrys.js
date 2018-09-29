@@ -6,6 +6,7 @@ import * as myActions from '../actions/my'
 import Profile from './profile'
 import { Skeleton, List, Icon, Button } from 'antd'
 import { entryListSelector, fetchedEntrySelector } from '../reducers/me'
+import ShowMore from '../components/show_more'
 
 const IconText = ({ type, text }) => (
   <span>
@@ -24,7 +25,7 @@ const LoadMore = (props) =>
         lineHeight: '32px'
       }}
     >
-      <Button onClick={() => props.onLoadMore()}>loading more</Button>
+      <Button onClick={() => props.onLoadMore()}>Daha Fazla Göster</Button>
     </div>
   ) : null
 
@@ -59,7 +60,6 @@ class MyEntrys extends React.PureComponent {
   }
 
   render() {
-    
     return (
       <Profile>
         <div className="entry-normal">
@@ -88,7 +88,7 @@ class MyEntrys extends React.PureComponent {
                         {item.TopicId.Title}
                       </Link>
                     }
-                    description={item.Entry.Content}
+                    description={<ShowMore text={item.Entry.Content} />}
                   />
                 </List.Item>
               )}

@@ -2,15 +2,15 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
-import * as myActions from '../actions/my'
-import Profile from './profile'
+import * as userActions from '../actions/user'
+import User from './user'
 import { Skeleton, List, Icon, Button } from 'antd'
-import { favsListSelector, fetchedFavsSelector } from '../reducers/me'
+import { entryListSelector, fetchedEntrySelector } from '../reducers/user'
 import ShowMore from '../components/show_more'
 
-const IconText = ({ type, theme, text, styles }) => (
+const IconText = ({ type, text }) => (
   <span>
-    <Icon type={type} theme={theme} style={{ marginRight: 8, ...styles }} />
+    <Icon type={type} style={{ marginRight: 8 }} />
     {text > 0 ? text : null}
   </span>
 )
@@ -29,7 +29,7 @@ const LoadMore = (props) =>
     </div>
   ) : null
 
-class MyFavorites extends React.PureComponent {
+class UserEntrys extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
@@ -39,18 +39,21 @@ class MyFavorites extends React.PureComponent {
   }
 
   componentWillMount() {
-    const { getFavoriteEntrys } = this.props.myActions
+    const {
+      match: { params }
+    } = this.props
 
-    getFavoriteEntrys().then(() => {})
+    const { getUserEntrys } = this.props.userActions
+    getUserEntrys(params).then(() => {})
   }
 
   loadmore = () => {
-    const { getFavoriteEntrys } = this.props.myActions
+    const { getUserEntrys } = this.props.userActions
     const { pageSize } = this.props.entrys
 
     if (this.state.page != pageSize) {
       let page = this.state.page + 1
-      getFavoriteEntrys({ p: page }).then(() => {
+      getUserEntrys({ p: page }).then(() => {
         this.setState({
           page: page,
           loadmore: (this.props.entrys.pageSize = page ? true : false)
@@ -61,7 +64,7 @@ class MyFavorites extends React.PureComponent {
 
   render() {
     return (
-      <Profile>
+      <User>
         <div className="entry-normal">
           {!this.props.isFetched && <Skeleton loading={true} active avatar />}
 
@@ -79,12 +82,7 @@ class MyFavorites extends React.PureComponent {
                 <List.Item
                   key={item.Entry.Id}
                   actions={[
-                    <IconText
-                      type="star-o"
-                      theme={'filled'}
-                      styles={{ color: '#ffcc00' }}
-                      text={item.Entry.FavoriteCount}
-                    />
+                    <IconText type="star-o" text={item.Entry.FavoriteCount} />
                   ]}
                 >
                   <List.Item.Meta
@@ -100,22 +98,22 @@ class MyFavorites extends React.PureComponent {
             />
           )}
         </div>
-      </Profile>
+      </User>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  favorites: state.me.favorites,
-  list: favsListSelector(state),
-  isFetched: fetchedFavsSelector(state)
+  entrys: state.user.entrys,
+  list: entryListSelector(state),
+  isFetched: fetchedEntrySelector(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  myActions: bindActionCreators(myActions, dispatch)
+  userActions: bindActionCreators(userActions, dispatch)
 })
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MyFavorites)
+)(UserEntrys)

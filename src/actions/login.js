@@ -16,6 +16,7 @@ export function setAuth(payload, extra) {
 
 export function resetAuth() {
   return async(dispatch, getState) => {
+    eksi.define({})
     dispatch({ type: RESET_AUTH })
   }
 }
