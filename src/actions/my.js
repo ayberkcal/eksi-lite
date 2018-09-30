@@ -3,7 +3,9 @@ import {
   MESSAGE_COUNT_SET,
   EVENT_COUNT_SET,
   SET_FAVORITES,
-  SET_ENTRYS
+  SET_ENTRYS,
+  SET_MESSAGES,
+  RESET_MESSAGES
 } from '../constants'
 
 export function setMe(payload, extra) {
@@ -55,5 +57,18 @@ export function getEntrys(state = {}) {
   return async (dispatch, getState, eksi) => {
     const response = await eksi.getMyEntrys(state)
     dispatch(setEntrys(response.data))
+  }
+}
+
+export function setMessages(payload, extra) {
+  return async (dispatch, getState, eksi) => {
+    dispatch({ type: SET_MESSAGES, payload })
+  }
+}
+
+export function getMessages(state) {
+  return async (dispatch, getState, eksi) => {
+    const response = await eksi.getMessages(state)
+    dispatch(setMessages(response.data))
   }
 }

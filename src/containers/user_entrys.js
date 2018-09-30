@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 import * as userActions from '../actions/user'
 import User from './user'
@@ -113,7 +114,7 @@ const mapDispatchToProps = (dispatch) => ({
   userActions: bindActionCreators(userActions, dispatch)
 })
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(UserEntrys)
+)(UserEntrys))

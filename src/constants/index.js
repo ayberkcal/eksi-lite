@@ -29,4 +29,8 @@ export const RESET_USER_ENTRYS = 'RESET_USER_ENTRYS'
 export const SET_CHANNELS = 'SET_CHANNELS'
 export const RESET_CHANNELS = 'RESET_CHANNELS'
 
+// Messages
+export const SET_MESSAGES = 'SET_MESSAGES'
+export const RESET_MESSAGES = 'RESET_MESSAGES'
+
 

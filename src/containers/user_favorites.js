@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
+import { withRouter } from 'react-router'
 import * as userActions from '../actions/user'
 import User from './user'
 import { Skeleton, List, Icon, Button } from 'antd'
@@ -43,17 +44,17 @@ class MyFavorites extends React.PureComponent {
       match: { params }
     } = this.props
 
-      const { getUserFavoriteEntrys } = this.props.userActions
-      getUserFavoriteEntrys(params).then(() => {})
+    const { getUserFavoriteEntrys } = this.props.userActions
+    getUserFavoriteEntrys(params).then(() => {})
   }
 
   loadmore = () => {
-      const { getUserFavoriteEntrys } = this.props.userActions
+    const { getUserFavoriteEntrys } = this.props.userActions
     const { pageSize } = this.props.favorites
 
     if (this.state.page != pageSize) {
       let page = this.state.page + 1
-        getUserFavoriteEntrys({ p: page }).then(() => {
+      getUserFavoriteEntrys({ p: page }).then(() => {
         this.setState({
           page: page,
           loadmore: (this.props.favorites.pageSize = page ? true : false)
@@ -113,7 +114,9 @@ const mapDispatchToProps = (dispatch) => ({
   userActions: bindActionCreators(userActions, dispatch)
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MyFavorites)
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(MyFavorites)
+)

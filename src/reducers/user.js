@@ -22,8 +22,10 @@ const defaultState = {
   hasEntryUsedOnSeyler: 0,
   caylak: false,
   friend: false,
-  block: false,
+  blocked: false,
   banned: false,
+  followed: false,
+  topicsBlocked: false,
   badges: []
 }
 
@@ -41,11 +43,13 @@ const info = (state = defaultState, action = {}) => {
         picture: action.payload.Picture,
         caylak: action.payload.UserInfo.IsCaylak,
         friend: action.payload.UserInfo.IsBuddy,
-        block: action.payload.UserInfo.IsBlocked,
+        followed: action.payload.UserInfo.IsFollowed,
+        blocked: action.payload.UserInfo.IsBlocked,
         banned: action.payload.UserInfo.IsBanned,
         followerCount: action.payload.FollowerCount,
         followingsCount: action.payload.FollowingsCount,
         hasEntryUsedOnSeyler: action.payload.HasEntryUsedOnSeyler,
+        topicsBlocked: action.payload.UserInfo.IsIndexTitlesBlocked,
         badges: action.payload.Badges
       }
       break
@@ -72,7 +76,8 @@ const favorites = (state = favDefaultState, action = {}) => {
         ...state,
         data: [...state.data, ...action.payload.Entries],
         page: action.payload.pageIndex,
-        pageTotal: action.payload.PageCount
+        pageTotal: action.payload.PageCount,
+        pageSize: action.payload.PageSize
       }
       break
     case LOCATION_CHANGE:
@@ -98,7 +103,8 @@ const entrys = (state = entrysDefaultState, action = {}) => {
         ...state,
         data: [...state.data, ...action.payload.Entries],
         page: action.payload.pageIndex,
-        pageTotal: action.payload.PageCount
+        pageTotal: action.payload.PageCount,
+        pageSize: action.payload.PageSize
       }
       break
     case LOCATION_CHANGE:
@@ -120,7 +126,9 @@ export const entryListSelector = (state) => state.user.entrys.data
 export const favsListSelector = (state) => state.user.favorites.data
 export const fetchedFavsSelector = (state) =>
   state.user.favorites.data.length > 0 ? true : false
-export const fetchedEntrySelector = (state) => (state.user.entrys.data.length > 0 ? true : false)
-export const userfetchedSelector = (state) => state.user.info.user_id != '' ? true : false
+export const fetchedEntrySelector = (state) =>
+  state.user.entrys.data.length > 0 ? true : false
+export const userfetchedSelector = (state) =>
+  state.user.info.user_id != '' ? true : false
 export const nameCharacterSelector = (state) =>
   state.user.info.nick.charAt(0).toUpperCase()

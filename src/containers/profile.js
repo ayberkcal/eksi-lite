@@ -92,7 +92,7 @@ class Profile extends React.PureComponent {
               </Col>
             </Row>}
         </div>
-        {this.props.children}
+      {this.props.children}
       </React.Fragment>
   }
 }

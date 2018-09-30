@@ -8,7 +8,8 @@ import {
   MyEntrys,
   MyFavorites,
   UserEntrys,
-  UserFavorites
+  UserFavorites,
+  Messages
 } from './components'
 
 const App = () => (
@@ -17,9 +18,10 @@ const App = () => (
     <Route exact path="/profile" component={Profile} />
     <Route exact path="/profile/entrys" component={MyEntrys} />
     <Route exact path="/profile/favorites" component={MyFavorites} />
+    <Route exact path="/profile/messages" component={Messages} />
     <Route exact path="/user/:nick" component={User} />
-    <Route exact path="/user/:nick/entrys" component={UserEntrys} />
-    <Route exact path="/user/:nick/favorites" component={UserFavorites} />
+    <Route path="/user/:nick/entrys" component={UserEntrys} />
+    <Route path="/user/:nick/favorites" component={UserFavorites} />
     <Route component={NotFound} />
   </Switch>
 )

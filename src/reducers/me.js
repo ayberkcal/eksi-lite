@@ -79,7 +79,8 @@ const favorites = (state = favDefaultState, action = {}) => {
         ...state,
         data: [...state.data, ...action.payload.Entries],
         page: action.payload.pageIndex,
-        pageTotal: action.payload.PageCount
+        pageTotal: action.payload.PageCount,
+        pageSize: action.payload.PageSize
       }
       break
     case LOCATION_CHANGE:
@@ -105,7 +106,8 @@ const entrys = (state = entrysDefaultState, action = {}) => {
         ...state,
         data: [...state.data, ...action.payload.Entries],
         page: action.payload.pageIndex,
-        pageTotal: action.payload.PageCount
+        pageTotal: action.payload.PageCount,
+        pageSize: action.payload.PageSize
       }
       break
     case LOCATION_CHANGE:
@@ -129,6 +131,7 @@ export const fetchedFavsSelector = (state) =>
   state.me.favorites.data.length > 0 ? true : false
 export const fetchedEntrySelector = (state) =>
   state.me.entrys.data.length > 0 ? true : false
-export const mefetchedSelector = (state) => state.me.info.user_id != '' ? true : false
+export const mefetchedSelector = (state) =>
+  state.me.info.user_id != '' ? true : false
 export const nameCharacterSelector = (state) =>
   state.auth.nick.charAt(0).toUpperCase()

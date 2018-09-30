@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import {  Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 import { bindActionCreators } from 'redux'
 import * as userActions from '../actions/user'
@@ -13,10 +13,57 @@ class User extends React.PureComponent {
       match: { params }
     } = this.props
 
-    
     const { getUser } = this.props.userActions
 
     getUser(params).then(() => {})
+  }
+
+  follow = () => {
+    const {
+      match: { params }
+    } = this.props
+    const { setUserFollow } = this.props.userActions
+    setUserFollow(params).then(() => {})
+  }
+
+  unfollow = () => {
+    const {
+      match: { params }
+    } = this.props
+    const { setUserUnfollow } = this.props.userActions
+    setUserUnfollow(params).then(() => {})
+  }
+
+  topicsBlock = () => {
+    const {
+      match: { params }
+    } = this.props
+    const { setUserTopicsBlock } = this.props.userActions
+    setUserTopicsBlock(params).then(() => {})
+  }
+
+  topicsUnblock = () => {
+    const {
+      match: { params }
+    } = this.props
+    const { setUserTopicsUnblock } = this.props.userActions
+    setUserTopicsUnblock(params).then(() => {})
+  }
+
+  block = () => {
+    const {
+      match: { params }
+    } = this.props
+    const { setUserBlock } = this.props.userActions
+    setUserBlock(params).then(() => {})
+  }
+
+  unBlock = () => {
+    const {
+      match: { params }
+    } = this.props
+    const { setUserUnblock } = this.props.userActions
+    setUserUnblock(params).then(() => {})
   }
 
   render() {
@@ -125,6 +172,26 @@ class User extends React.PureComponent {
                       Favorileri
                     </Link>
                   </span>
+                  <span
+                    onClick={
+                      this.props.user.info.topicsBlocked
+                        ? this.topicsUnblock
+                        : this.topicsBlock
+                    }
+                  >
+                    {this.props.user.info.topicsBlocked
+                      ? 'Başlıklarını Göster'
+                      : 'Başlıklarını Engelle'}
+                  </span>
+                  <span
+                    onClick={
+                      this.props.user.info.blocked ? this.unBlock : this.block
+                    }
+                  >
+                    {this.props.user.info.blocked
+                      ? 'Engellemeyi Kaldır'
+                      : 'Engelle'}
+                  </span>
                 </div>
               </Col>
               <Col span={3}>
@@ -137,9 +204,12 @@ class User extends React.PureComponent {
                 </Avatar>
                 <div className="meta">
                   <Button
-                    type={this.props.user.info.friend ? 'primary' : 'default'}
+                    type={this.props.user.info.friend ? 'default' : 'primary'}
                     className="follow-btn"
                     size="small"
+                    onClick={
+                      this.props.user.info.friend ? this.unfollow : this.follow
+                    }
                   >
                     {this.props.user.info.friend ? 'takip etme' : 'takip et'}
                   </Button>
@@ -164,4 +234,9 @@ const mapDispatchToProps = (dispatch) => ({
   userActions: bindActionCreators(userActions, dispatch)
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(User))
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(User)
+)
