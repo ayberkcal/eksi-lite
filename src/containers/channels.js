@@ -3,43 +3,50 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 import { getChannels } from '../actions/channels'
-import Loader from './../components/loader'
-import { Divider } from 'antd'
-import {
-  fetchedChannelsSelector,
-  channelsPriortySelector
-} from '../reducers/channels'
+import { Skeleton, List, Icon, Button } from 'antd'
+import { fetchedChannelsSelector } from '../reducers/channels'
 
 class Channels extends React.PureComponent {
-  componentDidMount() {
-    if (!this.props.isFetched) {
-      const { getChannels } = this.props
-      getChannels()
+  constructor(props) {
+    super(props)
+  }
+
+  componentWillMount() {
+    const { getChannels } = this.props
+    if(!this.props.isFetched){
+        getChannels().then(() => {})
     }
+    
   }
 
   render() {
-    if (!this.props.isFetched) {
-      return <Loader size={16} />
+    const { list, isFetched } = this.props
+
+    if (!isFetched) {
+      return (
+        <div className="entry-normal ">
+          <Skeleton loading={true} active avatar />
+        </div>
+      )
     }
+
     return (
-      <React.Fragment>
-        {this.props.list.map((channel) => (
-          <p key={channel.Id}>
-            <Link to={`/channel/${channel.Name}`}> {channel.DisplayName}</Link>{' '}
-          </p>
+        <div className="channels-container">
+        {list.map((channel) => (
+          <Link to={`/channel/${channel.Name}`} key={channel.Id}>
+            <div className={`events-normal active`}>
+              <h3>{channel.DisplayName}</h3>
+              <span>{channel.Description}</span>
+            </div>
+          </Link>
         ))}
-        <Divider />
-        <p> 
-            <Link to={`/channels`}> Tümü</Link>
-        </p>
-      </React.Fragment>
+      </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  list: channelsPriortySelector(state),
+  list: state.channels.data,
   isFetched: fetchedChannelsSelector(state)
 })
 

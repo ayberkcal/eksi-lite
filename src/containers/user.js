@@ -69,6 +69,7 @@ class User extends React.PureComponent {
   render() {
     return (
       <React.Fragment>
+        <div className="view">
         <div className="pr-normal">
           {!this.props.isFetched && <Skeleton loading={true} active avatar />}
           {this.props.isFetched && (
@@ -219,6 +220,7 @@ class User extends React.PureComponent {
           )}
         </div>
         {this.props.children}
+        </div>
       </React.Fragment>
     )
   }

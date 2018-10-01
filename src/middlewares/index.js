@@ -1,7 +1,7 @@
 //import { setErrorMessage } from '../actions/error'
 import { setMessageCount, setEventCount } from '../actions/my'
 
-const ErrorTracker = ({ dispatch, getState }) => next => async action => {
+const ErrorTracker = ({ dispatch, getState }) => (next) => async (action) => {
   try {
     const result = await next(action)
     return result
@@ -26,35 +26,34 @@ const ErrorTracker = ({ dispatch, getState }) => next => async action => {
 let messageCountTicker = null
 let eventCountTicker = null
 
-const WatcherCount = (eksi) => ({dispatch, getState}) => next => async action => {
+const WatcherCount = (eksi) => ({ dispatch, getState }) => (next) => async (
+  action
+) => {
   const store = getState()
-  if (store.auth.isAuth && !messageCountTicker){
-
+  if (store.auth.isAuth && !messageCountTicker) {
     messageCountTicker = setInterval(async () => {
       try {
         let response = await eksi.getMyUnreadMessagesCount()
-        if (response.data) {
-          dispatch(setMessageCount(response.data))
-        }
 
-        if (store.auth.isAuth){
+        dispatch(setMessageCount(response.data))
+
+        if (!store.auth.isAuth) {
           clearInterval(messageCountTicker)
         }
       } catch (err) {
         console.log(err)
       }
     }, 50000)
-
   }
 
   if (store.auth.isAuth && !eventCountTicker) {
     eventCountTicker = setInterval(async () => {
       try {
         let response = await eksi.getMyUnreadTopicsCount()
-        if (response.data) {
-          dispatch(setEventCount(response.data))
-        }
-        if (store.auth.isAuth) {
+
+        dispatch(setEventCount(response.data))
+
+        if (!store.auth.isAuth) {
           clearInterval(eventCountTicker)
         }
       } catch (err) {
@@ -63,9 +62,7 @@ const WatcherCount = (eksi) => ({dispatch, getState}) => next => async action =>
     }, 50000)
   }
 
- await next(action)
-
+  await next(action)
 }
-
 
 export { ErrorTracker, WatcherCount }

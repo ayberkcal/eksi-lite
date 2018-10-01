@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 import * as myActions from '../actions/my'
-import { Skeleton, List, Icon, Button } from 'antd'
+import Skeleton from '../components/skeleton'
 import {
   fetchedMessagesSelector,
   messagesListSelector
@@ -27,36 +27,36 @@ class MyMessages extends React.PureComponent {
   render() {
     const { list, isFetched } = this.props
     if (!isFetched) {
-      return <div className="entry-normal ">
-        <Skeleton loading={true} active avatar />
-      </div>
+      return <Skeleton />
     }
 
     return (
-      <div className="message-container">
-        {list.map((message) => (
-          <Link to={`/profile/message/${message.Id}`} key={message.Id}>
-            <div
-              className={`message-normal ${
-                message.Unread ? 'active' : 'default'
-              }`}
-            >
-              <h3>
-                @{message.RawNick}
-                &nbsp;&nbsp;
-                <small>{message.LastUpdateFormatted} yazdı</small>
-              </h3>
-              <span>{message.Summary} </span>
-            </div>
-          </Link>
-        ))}
+      <div className="view">
+        <div className="message-container">
+          {list.map((message) => (
+            <Link to={`/profile/message/${message.RawNick}`} key={message.Id}>
+              <div
+                className={`message-normal ${
+                  message.Unread ? 'active' : 'default'
+                }`}
+              >
+                <h3>
+                  @{message.RawNick}
+                  &nbsp;&nbsp;
+                  <small>{message.LastUpdateFormatted} yazdı</small>
+                </h3>
+                <span>{message.Summary} </span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-  messages: state.messages,
+  messages: state.messages.list,
   list: messagesListSelector(state),
   isFetched: fetchedMessagesSelector(state)
 })

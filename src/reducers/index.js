@@ -1,4 +1,4 @@
-import { routerReducer as routing } from 'react-router-redux'
+import { routerReducer as routing } from 'react-router-redux' // Todo : remove
 import { combineReducers } from 'redux'
 
 import auth from './auth'
@@ -6,6 +6,7 @@ import me from './me'
 import user from './user'
 import channels from './channels'
 import messages from './messages'
+import topics from './topics'
 
 const appReducer = combineReducers({
   routing,
@@ -13,7 +14,8 @@ const appReducer = combineReducers({
   me,
   user,
   channels,
-  messages
+  messages,
+  topics
 })
 
 const rootReducer = (state, action) => {

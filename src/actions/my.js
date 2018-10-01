@@ -6,7 +6,8 @@ import {
   SET_ENTRYS,
   SET_MESSAGES,
   RESET_MESSAGES,
-  SET_EVENTS
+  SET_EVENTS,
+  SET_MESSAGE
 } from '../constants'
 
 export function setMe(payload, extra) {
@@ -77,6 +78,9 @@ export function getMessages(payload) {
 export function setEvents(payload, extra) {
   return async (dispatch, getState, eksi) => {
     dispatch({ type: SET_EVENTS, payload })
+    let response = await eksi.getMyUnreadTopicsCount()
+    dispatch(setEventCount(response.data))
+
   }
 }
 
@@ -86,5 +90,20 @@ export function getEvents(payload = {}){
       p: payload.page ? payload.page : 1
     }) // todo remove after
     dispatch(setEvents(response.data))
+  }
+}
+
+export function setMessage(payload, extra) {
+  return async (dispatch, getState, eksi) => {
+    dispatch({ type: SET_MESSAGE, payload })
+    let response = await eksi.getMyUnreadMessagesCount()
+    dispatch(setMessageCount(response.data))
+  }
+}
+
+export function getMessage(payload = {}) {
+  return async (dispatch, getState, eksi) => {
+    const response = await eksi.getMessage(payload.nick)
+    dispatch(setMessage(response.data))
   }
 }

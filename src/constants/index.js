@@ -1,7 +1,7 @@
 
 // Async Component
-export const CONTENT_LOADING = 'CONTENT_LOADING'
-export const CONTENT_LOADED = 'CONTENT_LOADED'
+export const CONTENT_LOADING = '@component/LOADING'
+export const CONTENT_LOADED = '@component/LOADED'
 
 // Auth
 export const RESET_AUTH = 'RESET_AUTH'
@@ -33,6 +33,12 @@ export const RESET_CHANNELS = 'RESET_CHANNELS'
 
 // Messages
 export const SET_MESSAGES = 'SET_MESSAGES'
+export const SET_MESSAGE = 'SET_MESSAGE'
 export const RESET_MESSAGES = 'RESET_MESSAGES'
+
+
+// Topics
+export const SET_TOPICS = 'SET_TOPICS'
+export const RESET_TOPICS = 'RESET_TOPICS'
 
 

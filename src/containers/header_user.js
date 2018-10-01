@@ -22,16 +22,16 @@ const HeaderUser = (props) => (
         </p>
         <p>
           <Badge
-            dot={props.me.info.messageCount >= 1 ? true : false}
-            status="success"
+            dot={props.me.info.messageCount > 0 ? true : false}
+            status={props.me.info.messageCount > 0 ? 'success' : ''}
           >
             <Link to="/profile/messages">Mesajlarım</Link>
           </Badge>
         </p>
         <p>
           <Badge
-            dot={props.me.info.eventCount >= 1 ? true : false}
-            status="success"
+            dot={props.me.info.eventCount > 0 ? true : false}
+            status={props.me.info.eventCount > 0 ? 'success' : ''}
           >
             <Link to="/profile/events">Olaylar</Link>
           </Badge>
@@ -43,11 +43,15 @@ const HeaderUser = (props) => (
   >
     <Badge
       dot={
-        props.me.info.eventCount >= 1 || props.me.info.messageCount
+        props.me.info.eventCount > 0 || props.me.info.messageCount > 0
           ? true
           : false
       }
-      status="default"
+      status={
+        props.me.info.eventCount > 0 || props.me.info.messageCount > 0
+          ? 'success'
+          : ''
+      }
     >
       <Avatar>{props.character}</Avatar>
     </Badge>

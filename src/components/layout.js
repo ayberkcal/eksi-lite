@@ -6,25 +6,20 @@ import { bindActionCreators } from 'redux'
 import { Avatar, Badge, Popover, Divider } from 'antd'
 import asyncComponent from '../containers/asyncComponent'
 const HeaderUser = asyncComponent(() => import('../containers/header_user'))
-const Channels = asyncComponent(() => import('../containers/channels'))
+const HeadChannels = asyncComponent(() => import('../containers/header_channels'))
 
 export default (props) => {
-    return (
-      <div className="normal">
+    return <div className="normal">
         <div className="header">
           <div className="inner">
             <Link to="/">
-              <img
-                alt="presentation"
-                className="logo"
-                src="https://s3.eksiup.com/7ce863569735.png"
-              />
+              <img alt="presentation" className="logo" src="https://s3.eksiup.com/7ce863569735.png" />
             </Link>
             <div className="nav-links">
-              <Link to="/gundem">Gündem</Link>
-              <Link to="/bugun">Bugün</Link>
+              <Link to="/popular?page=1">Gündem</Link>
+              <Link to="/today?page=1">Bugün</Link>
             </div>
-            <Popover placement="bottom" content={<Channels />}>
+          <Popover placement="bottom" content={<HeadChannels />}>
               <span className="more">•••</span>
             </Popover>
             <span className="user-dr">
@@ -32,9 +27,8 @@ export default (props) => {
             </span>
           </div>
         </div>
-        <div className="view">{props.children}</div>
+        {props.children}
       </div>
-    )
 }
 
 // todo: children

@@ -9,7 +9,11 @@ const UserFavorites = asyncComponent(() =>
   import('../containers/user_favorites')
 )
 const Messages = asyncComponent(() => import('../containers/messages'))
+const Message = asyncComponent(() => import('../containers/message'))
 const Events = asyncComponent(() => import('../containers/events'))
+const Channels = asyncComponent(() => import('../containers/channels'))
+const Today = asyncComponent(() => import('../containers/today_topics'))
+const Popular = asyncComponent(() => import('../containers/popular_topics'))
 
 export NotFound from '../components/notfound'
 export Home from '../components/home'
@@ -22,5 +26,9 @@ export {
   UserEntrys,
   UserFavorites,
   Messages,
-  Events
+  Events,
+  Message,
+  Channels,
+  Today,
+  Popular
 }
