@@ -6,7 +6,6 @@ import me from './me'
 import user from './user'
 import channels from './channels'
 import messages from './messages'
-import events from './events'
 
 const appReducer = combineReducers({
   routing,
@@ -14,8 +13,7 @@ const appReducer = combineReducers({
   me,
   user,
   channels,
-  messages,
-  events
+  messages
 })
 
 const rootReducer = (state, action) => {

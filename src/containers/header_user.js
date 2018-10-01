@@ -21,7 +21,10 @@ const HeaderUser = (props) => (
           <Link to="/profile/favorites">Favorilerim</Link>
         </p>
         <p>
-          <Badge dot={props.me.info.messageCount >= 1 ? true : false}>
+          <Badge
+            dot={props.me.info.messageCount >= 1 ? true : false}
+            status="success"
+          >
             <Link to="/profile/messages">Mesajlarım</Link>
           </Badge>
         </p>

@@ -6,7 +6,9 @@ import {
   SET_FAVORITES,
   RESET_FAVORITES,
   SET_ENTRYS,
-  RESET_ENTRYS
+  RESET_ENTRYS,
+  SET_EVENTS,
+  RESET_EVENTS
 } from '../constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import { combineReducers } from 'redux'
@@ -119,14 +121,45 @@ const entrys = (state = entrysDefaultState, action = {}) => {
   }
 }
 
+const eventsDefaultState = {
+  data: [],
+  page: 1,
+  pageTotal: 0,
+  pageSize: 0
+}
+
+const events = (state = eventsDefaultState, action = {}) => {
+  switch (action.type) {
+    case SET_EVENTS:
+      return {
+        ...state,
+        data: [...state.data, ...action.payload.Topics],
+        page: action.payload.pageIndex,
+        pageTotal: action.payload.PageCount,
+        pageSize: action.payload.PageSize
+      }
+      break
+    case LOCATION_CHANGE:
+    case RESET_EVENTS:
+      return eventsDefaultState
+      break
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   info,
   favorites,
-  entrys
+  entrys,
+  events
 })
 
 export const entryListSelector = (state) => state.me.entrys.data
 export const favsListSelector = (state) => state.me.favorites.data
+export const eventsListSelector = (state) => state.me.events.data
+export const fetchedEventsSelector = (state) =>
+  state.me.events.pageSize > 0 ? true : false
 export const fetchedFavsSelector = (state) =>
   state.me.favorites.data.length > 0 ? true : false
 export const fetchedEntrySelector = (state) =>

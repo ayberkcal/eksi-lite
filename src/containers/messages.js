@@ -8,7 +8,6 @@ import {
   fetchedMessagesSelector,
   messagesListSelector
 } from '../reducers/messages'
-import ShowMore from '../components/show_more'
 
 class MyMessages extends React.PureComponent {
   constructor(props) {
@@ -26,12 +25,38 @@ class MyMessages extends React.PureComponent {
   }
 
   render() {
-    return <div className="entry-normal" />
+    const { list, isFetched } = this.props
+    if (!isFetched) {
+      return <div className="entry-normal ">
+        <Skeleton loading={true} active avatar />
+      </div>
+    }
+
+    return (
+      <div className="message-container">
+        {list.map((message) => (
+          <Link to={`/profile/message/${message.Id}`} key={message.Id}>
+            <div
+              className={`message-normal ${
+                message.Unread ? 'active' : 'default'
+              }`}
+            >
+              <h3>
+                @{message.RawNick}
+                &nbsp;&nbsp;
+                <small>{message.LastUpdateFormatted} yazdı</small>
+              </h3>
+              <span>{message.Summary} </span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    )
   }
 }
 
 const mapStateToProps = (state) => ({
-  messages: state.me.messages,
+  messages: state.messages,
   list: messagesListSelector(state),
   isFetched: fetchedMessagesSelector(state)
 })

@@ -9,6 +9,7 @@ const UserFavorites = asyncComponent(() =>
   import('../containers/user_favorites')
 )
 const Messages = asyncComponent(() => import('../containers/messages'))
+const Events = asyncComponent(() => import('../containers/events'))
 
 export NotFound from '../components/notfound'
 export Home from '../components/home'
@@ -20,5 +21,6 @@ export {
   MyFavorites,
   UserEntrys,
   UserFavorites,
-  Messages
+  Messages,
+  Events
 }

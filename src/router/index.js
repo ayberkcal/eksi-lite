@@ -9,7 +9,8 @@ import {
   MyFavorites,
   UserEntrys,
   UserFavorites,
-  Messages
+  Messages,
+  Events
 } from './components'
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
     <Route exact path="/profile/entrys" component={MyEntrys} />
     <Route exact path="/profile/favorites" component={MyFavorites} />
     <Route exact path="/profile/messages" component={Messages} />
+    <Route exact path="/profile/events" component={Events} />
     <Route exact path="/user/:nick" component={User} />
     <Route path="/user/:nick/entrys" component={UserEntrys} />
     <Route path="/user/:nick/favorites" component={UserFavorites} />

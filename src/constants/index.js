@@ -16,6 +16,8 @@ export const SET_FAVORITES = 'SET_FAVORITES'
 export const RESET_FAVORITES = 'RESET_FAVORITES'
 export const SET_ENTRYS = 'SET_ENTRYS'
 export const RESET_ENTRYS = 'RESET_ENTRYS'
+export const SET_EVENTS = 'SET_EVENTS'
+export const RESET_EVENTS = 'RESET_EVENTS'
 
 // User
 export const SET_USER = 'SET_USER'

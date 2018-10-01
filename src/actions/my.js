@@ -5,7 +5,8 @@ import {
   SET_FAVORITES,
   SET_ENTRYS,
   SET_MESSAGES,
-  RESET_MESSAGES
+  RESET_MESSAGES,
+  SET_EVENTS
 } from '../constants'
 
 export function setMe(payload, extra) {
@@ -66,9 +67,24 @@ export function setMessages(payload, extra) {
   }
 }
 
-export function getMessages(state) {
+export function getMessages(payload) {
   return async (dispatch, getState, eksi) => {
-    const response = await eksi.getMessages(state)
+    const response = await eksi.getMessages(payload)
     dispatch(setMessages(response.data))
+  }
+}
+
+export function setEvents(payload, extra) {
+  return async (dispatch, getState, eksi) => {
+    dispatch({ type: SET_EVENTS, payload })
+  }
+}
+
+export function getEvents(payload = {}){
+  return async (dispatch, getState, eksi) => {
+    const response = await eksi.client.get(`v1/index/olay`, {
+      p: payload.page ? payload.page : 1
+    }) // todo remove after
+    dispatch(setEvents(response.data))
   }
 }
