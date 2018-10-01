@@ -3,11 +3,9 @@ import { connect } from 'react-redux'
 import Loader from './../../components/loader'
 import { asyncContentLoading, asyncContentLoaded } from './../../actions/async'
 
-
-
 const asyncComponent = (
   getComponent,
-  Loading = <Loader />
+  Loading = <Loader color="#fff"/>
 ) => {
   class AsyncComponent extends PureComponent {
     static Component = null

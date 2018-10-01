@@ -13,10 +13,9 @@ class Channels extends React.PureComponent {
 
   componentWillMount() {
     const { getChannels } = this.props
-    if(!this.props.isFetched){
-        getChannels().then(() => {})
+    if (!this.props.isFetched) {
+      getChannels().then(() => {})
     }
-    
   }
 
   render() {
@@ -31,15 +30,17 @@ class Channels extends React.PureComponent {
     }
 
     return (
+      <div className="view">
         <div className="channels-container">
-        {list.map((channel) => (
-          <Link to={`/channel/${channel.Name}`} key={channel.Id}>
-            <div className={`events-normal active`}>
-              <h3>{channel.DisplayName}</h3>
-              <span>{channel.Description}</span>
-            </div>
-          </Link>
-        ))}
+          {list.map((channel) => (
+            <Link to={`/channel/${channel.Name}`} key={channel.Id}>
+              <div className={`events-normal active`}>
+                <h3>{channel.DisplayName}</h3>
+                <span>{channel.Description}</span>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
     )
   }

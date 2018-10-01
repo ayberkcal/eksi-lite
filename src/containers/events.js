@@ -23,26 +23,32 @@ class MyEvents extends React.PureComponent {
 
   render() {
     const { list, isFetched } = this.props
-    
+
     if (!isFetched) {
-        return <div className="entry-normal "> 
-            <Skeleton loading={true} active avatar />
+      return (
+        <div className="entry-normal ">
+          <Skeleton loading={true} active avatar />
         </div>
+      )
     }
 
-    return <div className="events-container">
-        {list.map((event) => (
-          <Link to={`/topic/${event.TopicId}`} key={event.Snapshot}>
-            <div
-              className={`events-normal ${
-                        event.MatchedCount > 0 ? 'active' : 'default'
-              } }`}
-            >
-              <h3>{event.Title}</h3>
-            </div>
-          </Link>
-        ))}
+    return (
+      <div className="view">
+        <div className="events-container">
+          {list.map((event) => (
+            <Link to={`/topic/${event.TopicId}`} key={event.Snapshot}>
+              <div
+                className={`events-normal ${
+                  event.MatchedCount > 0 ? 'active' : 'default'
+                } }`}
+              >
+                <h3>{event.Title}</h3>
+              </div>
+            </Link>
+          ))}
+        </div>
       </div>
+    )
   }
 }
 

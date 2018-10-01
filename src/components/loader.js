@@ -1,4 +1,4 @@
 import React from 'react'
 import { Spin, Icon } from 'antd'
 
-export default ({size = 24}) => <Spin indicator={<Icon type="loading" style={{ fontSize: size }} spin />} />
+export default ({ size = 24, color }) => <Spin indicator={<Icon type="loading" style={{ fontSize: size, color }} spin />} />

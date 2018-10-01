@@ -20,7 +20,7 @@ class Channels extends React.PureComponent {
 
   render() {
     if (!this.props.isFetched) {
-      return <Loader size={16} />
+      return <Loader size={16} color="#81c14b" />
     }
     return (
       <div className="channels-head">

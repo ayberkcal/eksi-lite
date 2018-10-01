@@ -49,11 +49,11 @@ const HeaderUser = (props) => (
       }
       status={
         props.me.info.eventCount > 0 || props.me.info.messageCount > 0
-          ? 'success'
+          ? 'default'
           : ''
       }
     >
-      <Avatar>{props.character}</Avatar>
+      <Avatar src={props.me.info.picture}>{props.character}</Avatar>
     </Badge>
   </Popover>
 )
