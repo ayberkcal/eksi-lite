@@ -6,7 +6,7 @@ import logger from 'redux-logger'
 import createHashHistory from 'history/createHashHistory'
 import rootReducer from '../reducers'
 import { persist } from '../utils'
-import { WatcherCount } from '../middlewares'
+import { WatcherCount, ErrorTracker } from '../middlewares'
 
 const History = createHashHistory()
 
@@ -29,6 +29,7 @@ const initialState = persist.getStore()
 const middleware = [
   routerMiddleware(History),
   WatcherCount(eksi),
+  ErrorTracker(),
   ReduxThunk.withExtraArgument(eksi),
   persist.getMiddleware()
 ]

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import * as topicsActions from '../actions/topics'
 import { Skeleton, List, Icon, Button } from 'antd'
 import Pagination from '../components/pagination'
-import { topicsListSelector } from '../reducers/topics'
+import { topicsListSelector, topicsStatusSelector } from '../reducers/topics'
 import { parse, stringify } from 'query-string'
 
 class TodayTopics extends React.PureComponent {
@@ -21,37 +21,42 @@ class TodayTopics extends React.PureComponent {
     getPopularTopics({ p: page }).then(() => {})
   }
 
-  pageChange = (page, pageSize) => {
+  pageChange = (page) => {
     const { history, location } = this.props
     const { getPopularTopics } = this.props.topicsActions
 
     getPopularTopics({ p: page }).then(() => {
       history.replace({ ...location, search: stringify({ page: page }) })
+      //window.scrollTo(0, 0) todo: more clever 
     })
   }
 
   render() {
-    const { list, isFetched } = this.props
-
-    //if (!isFetched) {
-    //  return (
-    //    <div className="entry-normal ">
-    //      <Skeleton loading={true} active avatar />
-    //    </div>
-    //  )
-    //}
+    const { list, status } = this.props
 
     return (
       <div className="topics-container">
         <div className="topics-pagination">
           <div className="view">
-          <Pagination
-            defaultCurrent={1}
-            current={this.props.topics.page}
-            total={this.props.topics.pageTotal}
-            onChange={this.pageChange}
-          />
+            <Pagination
+              defaultCurrent={1}
+              current={this.props.topics.page}
+              total={this.props.topics.pageTotal}
+              onChange={this.pageChange}
+              status={status}
+            />
           </div>
+        </div>
+        <div className="entry-normal ">
+          {status === 'fetching' && (
+            <React.Fragment>
+              {Array.from({
+                length: 25
+              }).map((_, i) => (
+                <Skeleton loading={true} active avatar key={i} />
+              ))}
+            </React.Fragment>
+          )}
         </div>
       </div>
     )
@@ -60,7 +65,8 @@ class TodayTopics extends React.PureComponent {
 
 const mapStateToProps = (state) => ({
   topics: state.topics,
-  list: topicsListSelector(state)
+  list: topicsListSelector(state),
+  status: topicsStatusSelector(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

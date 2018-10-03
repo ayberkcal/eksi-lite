@@ -1,24 +1,41 @@
-//import { setErrorMessage } from '../actions/error'
 import { setMessageCount, setEventCount } from '../actions/my'
+import { resetAuth } from '../actions/login'
+import { notification } from 'antd'
 
-const ErrorTracker = ({ dispatch, getState }) => (next) => async (action) => {
+const ErrorTracker = () => ({ dispatch, getState }) => (next) => async (action) => {
   try {
     const result = await next(action)
     return result
   } catch (error) {
-    if (error.status && error.status === 401) {
-      dispatch(resetLogin())
-    } else if (error.status && error.status === 500) {
-      dispatch(setErrorMessage('Sunucu ile bağlantı kurulamıyor..'))
-    }
+    if (error.response) {
+      
+      const { response: { data, status} } = error
 
-    if (error.body.error && error.status === 400) {
-      dispatch(setErrorMessage(error.body.error))
-    }
-    if (process.env.NODE_ENV != 'production') {
-      console.log(error)
-    }
+      if (status === 400) {
+        notification.error({
+          message: 'Bir Sorun Oluştu',
+          description: data.error_description
+        })
 
+        dispatch(resetAuth())
+      }
+      
+      if(status === 401){
+        notification.error({
+          message: 'Giriş Yapmanız Gerekmekte',
+          description: data.error_description
+        })
+
+        dispatch(resetAuth())
+      }
+
+      if(status === 500){
+        notification.error({
+          message: 'Ekşisözlüğe ulaşılamıyor',
+          description: 'daha sonra tekrar deneyin'
+        })
+      }
+    }
     return error
   }
 }
@@ -41,7 +58,9 @@ const WatcherCount = (eksi) => ({ dispatch, getState }) => (next) => async (
           clearInterval(messageCountTicker)
         }
       } catch (err) {
-        console.log(err)
+        if (process.env.NODE_ENV != 'production') {
+          console.log(error)
+        }
       }
     }, 50000)
   }
@@ -57,7 +76,9 @@ const WatcherCount = (eksi) => ({ dispatch, getState }) => (next) => async (
           clearInterval(eventCountTicker)
         }
       } catch (err) {
-        console.log(err)
+        if (process.env.NODE_ENV != 'production') {
+          console.log(error)
+        }
       }
     }, 50000)
   }

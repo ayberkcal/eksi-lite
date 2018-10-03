@@ -5,9 +5,6 @@ import Loader from './loader'
 export default class Pagination extends React.PureComponent {
   constructor(props) {
     super(props)
-    this.state = {
-      complete: false
-    }
   }
 
   next = () => {
@@ -16,8 +13,7 @@ export default class Pagination extends React.PureComponent {
         ? this.props.current + 1
         : this.props.current
     if (this.props.onChange && next != this.props.current) {
-      this.props.onChange(next, this.complete)
-      this.setState({ complete: true })
+      this.props.onChange(next)
     }
   }
 
@@ -25,12 +21,9 @@ export default class Pagination extends React.PureComponent {
     let prev =
       this.props.current <= 1 ? this.props.current : this.props.current - 1
     if (this.props.onChange && prev != this.props.current) {
-      this.props.onChange(prev, this.complete)
-      this.setState({ complete: true })
+      this.props.onChange(prev)
     }
   }
-
-  complete = () => this.setState({ complete: false })
 
   render() {
     return (
@@ -42,14 +35,14 @@ export default class Pagination extends React.PureComponent {
               shape="circle"
               icon="left"
               onClick={this.prev}
-              disabled={this.state.complete ? true : false}
+              disabled={this.props.status === 'fetching' ? true : false}
             />
           </Col>
           <Col span={20}>
             <span style={{ color: '#81c14b', fontSize: 15 }}>
-              {this.state.complete && <Loader color="#81c14b" />}
+              {this.props.status === 'fetching' && <Loader color="#81c14b" />}
 
-              {!this.state.complete && (
+              {this.props.status !== 'fetching' && (
                 <React.Fragment>
                   {this.props.current == 0
                     ? this.props.defaultCurrent
@@ -66,7 +59,7 @@ export default class Pagination extends React.PureComponent {
               shape="circle"
               icon="right"
               onClick={this.next}
-              disabled={this.state.complete ? true : false}
+              disabled={this.props.status === 'fetching' ? true : false}
             />
           </Col>
         </Row>

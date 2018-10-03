@@ -10,7 +10,7 @@ import ShowMore from '../components/show_more'
 
 const IconText = ({ type, theme, text, styles }) => (
   <span>
-    <Icon type={type} theme={theme} style={{ marginRight: 8, ...styles }} />
+    <Icon type={type} style={{ marginRight: 8, ...styles }} />
     {text > 0 ? text : null}
   </span>
 )
@@ -81,7 +81,6 @@ class MyFavorites extends React.PureComponent {
                   actions={[
                     <IconText
                       type="star-o"
-                      theme={'filled'}
                       styles={{ color: '#ffcc00' }}
                       text={item.Entry.FavoriteCount}
                     />

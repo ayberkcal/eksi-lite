@@ -1,11 +1,12 @@
-import { SET_TOPICS, RESET_TOPICS } from '../constants'
+import { SET_TOPICS, SET_TOPICS_STATUS, RESET_TOPICS } from '../constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
 
 const defaultState = {
   data: [],
   page: 1,
   pageTotal: 0,
-  pageSize: 0
+  pageSize: 0,
+  status: 'none'
 }
 
 export default (state = defaultState, action = {}) => {
@@ -19,6 +20,12 @@ export default (state = defaultState, action = {}) => {
         pageSize: action.payload.PageSize
       }
       break
+    case SET_TOPICS_STATUS:
+      return {
+        ...state,
+        status: action.payload
+      }
+      break
     //case LOCATION_CHANGE:
     case RESET_TOPICS:
       return defaultState
@@ -28,6 +35,6 @@ export default (state = defaultState, action = {}) => {
   }
 }
 
-//export const fetchedTopicsSelector = (state) => state.topics.data.length > 0 ? true : false
+export const topicsStatusSelector = (state) => state.topics.status
 
 export const topicsListSelector = (state) => state.topics.data
