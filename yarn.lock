@@ -5285,9 +5285,9 @@ react-lifecycles-compat@^3.0.2, react-lifecycles-compat@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
-react-megaera@^1.0.2:
+react-megaera@1.0.2:
   version "1.0.2"
-  resolved "https://registry.yarnpkg.com/react-megaera/-/react-megaera-1.0.2.tgz#5e91ed49358d7942f074b065e4d05510c7403f57"
+  resolved "http://registry.npmjs.org/react-megaera/-/react-megaera-1.0.2.tgz#5e91ed49358d7942f074b065e4d05510c7403f57"
   dependencies:
     prop-types "^15.6.0"
     react "^16.2.0"
