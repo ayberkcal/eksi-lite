@@ -80,7 +80,7 @@ const favorites = (state = favDefaultState, action = {}) => {
       return {
         ...state,
         data: [...state.data, ...action.payload.Entries],
-        page: action.payload.pageIndex,
+        page: action.payload.PageIndex,
         pageTotal: action.payload.PageCount,
         pageSize: action.payload.PageSize
       }
@@ -107,7 +107,7 @@ const entrys = (state = entrysDefaultState, action = {}) => {
       return {
         ...state,
         data: [...state.data, ...action.payload.Entries],
-        page: action.payload.pageIndex,
+        page: action.payload.PageIndex,
         pageTotal: action.payload.PageCount,
         pageSize: action.payload.PageSize
       }
@@ -134,7 +134,7 @@ const events = (state = eventsDefaultState, action = {}) => {
       return {
         ...state,
         data: [...state.data, ...action.payload.Topics],
-        page: action.payload.pageIndex,
+        page: action.payload.PageIndex,
         pageTotal: action.payload.PageCount,
         pageSize: action.payload.PageSize
       }

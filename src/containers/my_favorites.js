@@ -46,7 +46,7 @@ class MyFavorites extends React.PureComponent {
 
   loadmore = () => {
     const { getFavoriteEntrys } = this.props.myActions
-    const { pageSize } = this.props.entrys
+    const { pageSize } = this.props.favorites
 
     if (this.state.page != pageSize) {
       let page = this.state.page + 1

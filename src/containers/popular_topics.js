@@ -1,10 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Link } from 'react-router-dom'
 import * as topicsActions from '../actions/topics'
-import { Skeleton, List, Icon, Button } from 'antd'
 import Pagination from '../components/pagination'
+import Lists from '../components/list'
 import { topicsListSelector, topicsStatusSelector } from '../reducers/topics'
 import { parse, stringify } from 'query-string'
 
@@ -27,7 +26,7 @@ class TodayTopics extends React.PureComponent {
 
     getPopularTopics({ p: page }).then(() => {
       history.replace({ ...location, search: stringify({ page: page }) })
-      //window.scrollTo(0, 0) todo: more clever 
+      //window.scrollTo(0, 0) todo: more clever
     })
   }
 
@@ -47,16 +46,10 @@ class TodayTopics extends React.PureComponent {
             />
           </div>
         </div>
-        <div className="entry-normal ">
-          {status === 'fetching' && (
-            <React.Fragment>
-              {Array.from({
-                length: 25
-              }).map((_, i) => (
-                <Skeleton loading={true} active avatar key={i} />
-              ))}
-            </React.Fragment>
-          )}
+        <div className="view">
+          <div className="topic-list-container">
+            <Lists data={list} status={status} />
+          </div>
         </div>
       </div>
     )

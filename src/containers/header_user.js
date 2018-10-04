@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Avatar, Badge, Popover, Drawer } from 'antd'
 import { nameCharacterSelector } from '../reducers/me'
 import { bindActionCreators } from 'redux'
@@ -31,28 +31,67 @@ class HeaderUser extends React.Component {
             content={
               <React.Fragment>
                 <p>
-                  <Link to="/profile">Profilim</Link>
+                  <NavLink
+                    exact={true}
+                    activeClassName={'active-link'}
+                    to="/profile"
+                  >
+                    Profilim
+                  </NavLink>
                 </p>
                 <p>
-                  <Link to="/profile/entrys">Entrylerim</Link>
+                  <NavLink
+                    exact={true}
+                    activeClassName={'active-link'}
+                    to="/profile/entrys"
+                  >
+                    Entrylerim
+                  </NavLink>
                 </p>
                 <p>
-                  <Link to="/profile/favorites">Favorilerim</Link>
+                  <NavLink
+                    exact={true}
+                    activeClassName={'active-link'}
+                    to="/profile/favorites"
+                  >
+                    Favorilerim
+                  </NavLink>
                 </p>
                 <p>
                   <Badge
                     dot={props.me.info.messageCount > 0 ? true : false}
                     status={props.me.info.messageCount > 0 ? 'success' : ''}
                   >
-                    <Link to="/profile/messages?page=1">Mesajlarım</Link>
+                    <NavLink
+                      exact={true}
+                      activeClassName={'active-link'}
+                      to="/profile/messages"
+                    >
+                      Mesajlarım
+                    </NavLink>
                   </Badge>
+                </p>
+                <p>
+                  <NavLink
+                    exact={true}
+                    activeClassName={'active-link'}
+                    to="/profile/settings"
+                  >
+                    Ayarlar
+                  </NavLink>
                 </p>
                 <p>
                   <Badge
                     dot={props.me.info.eventCount > 0 ? true : false}
                     status={props.me.info.eventCount > 0 ? 'success' : ''}
                   >
-                    <Link to="/profile/events">Olaylar</Link>
+                    <NavLink
+                      exact={true}
+                      activeClassName={'active-link'}
+                      to="/profile/events"
+                    >
+                      Olaylar
+                    </NavLink>
                   </Badge>
                 </p>
                 <p onClick={() => props.loginActions.resetAuth()}>Çıkış Yap</p>
@@ -103,20 +142,44 @@ class HeaderUser extends React.Component {
           >
             <React.Fragment>
               <p>
-                <Link to="/profile">Profilim</Link>
+                <NavLink
+                  exact={true}
+                  activeClassName={'active-link'}
+                  to="/profile"
+                >
+                  Profilim
+                </NavLink>
               </p>
               <p>
-                <Link to="/profile/entrys">Entrylerim</Link>
+                <NavLink
+                  exact={true}
+                  activeClassName={'active-link'}
+                  to="/profile/entrys"
+                >
+                  Entrylerim
+                </NavLink>
               </p>
               <p>
-                <Link to="/profile/favorites">Favorilerim</Link>
+                <NavLink
+                  exact={true}
+                  activeClassName={'active-link'}
+                  to="/profile/favorites"
+                >
+                  Favorilerim
+                </NavLink>
               </p>
               <p>
                 <Badge
                   dot={props.me.info.messageCount > 0 ? true : false}
                   status={props.me.info.messageCount > 0 ? 'success' : ''}
                 >
-                  <Link to="/profile/messages?page=1">Mesajlarım</Link>
+                  <NavLink
+                    exact={true}
+                    activeClassName={'active-link'}
+                    to="/profile/messages"
+                  >
+                    Mesajlarım
+                  </NavLink>
                 </Badge>
               </p>
               <p>
@@ -124,8 +187,23 @@ class HeaderUser extends React.Component {
                   dot={props.me.info.eventCount > 0 ? true : false}
                   status={props.me.info.eventCount > 0 ? 'success' : ''}
                 >
-                  <Link to="/profile/events">Olaylar</Link>
+                  <NavLink
+                    exact={true}
+                    activeClassName={'active-link'}
+                    to="/profile/events"
+                  >
+                    Olaylar
+                  </NavLink>
                 </Badge>
+              </p>
+              <p>
+                <NavLink
+                  exact={true}
+                  activeClassName={'active-link'}
+                  to="/profile/settings"
+                >
+                  Ayarlar
+                  </NavLink>
               </p>
               <p onClick={() => props.loginActions.resetAuth()}>Çıkış Yap</p>
             </React.Fragment>

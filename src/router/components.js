@@ -14,6 +14,8 @@ const Events = asyncComponent(() => import('../containers/events'))
 const Channels = asyncComponent(() => import('../containers/channels'))
 const Today = asyncComponent(() => import('../containers/today_topics'))
 const Popular = asyncComponent(() => import('../containers/popular_topics'))
+const Settings = asyncComponent(() => import('../containers/settings'))
+const Channel = asyncComponent(() => import('../containers/channel'))
 
 export NotFound from '../components/notfound'
 export Home from '../components/home'
@@ -30,5 +32,7 @@ export {
   Message,
   Channels,
   Today,
-  Popular
+  Popular,
+  Settings,
+  Channel
 }

@@ -15,6 +15,8 @@ import {
   Channels,
   Today,
   Popular,
+  Settings,
+  Channel
 } from './components'
 
 const App = () => (
@@ -23,7 +25,9 @@ const App = () => (
     <Route exact path="/popular" component={Popular} />
     <Route exact path="/today" component={Today} />
     <Route exact path="/channels" component={Channels} />
+    <Route exact path="/channel/:name" component={Channel} />    
     <Route exact path="/profile" component={Profile} />
+    <Route exact path="/profile/settings" component={Settings} />
     <Route exact path="/profile/entrys" component={MyEntrys} />
     <Route exact path="/profile/favorites" component={MyFavorites} />
     <Route exact path="/profile/messages" component={Messages} />
