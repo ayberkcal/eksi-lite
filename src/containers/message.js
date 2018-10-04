@@ -6,7 +6,7 @@ import * as myActions from '../actions/my'
 import Skeleton from '../components/skeleton'
 import {
   messageListSelector,
-  fetchedMessageSelector
+  messageStatusSelector
 } from '../reducers/messages'
 
 class MyMessages extends React.PureComponent {
@@ -28,9 +28,9 @@ class MyMessages extends React.PureComponent {
   }
 
   render() {
-    const { list, isFetched } = this.props
+    const { list, status } = this.props
 
-    if (!isFetched) {
+    if (status === 'fetching') {
       return <Skeleton />
     }
 
@@ -41,7 +41,7 @@ class MyMessages extends React.PureComponent {
 const mapStateToProps = (state) => ({
   message: state.messages.message,
   list: messageListSelector(state),
-  isFetched: fetchedMessageSelector(state)
+  status: messageStatusSelector(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

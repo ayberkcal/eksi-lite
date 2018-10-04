@@ -1,4 +1,10 @@
-import { SET_MESSAGES, RESET_MESSAGES, SET_MESSAGE } from '../constants'
+import {
+  SET_MESSAGES,
+  RESET_MESSAGES,
+  SET_MESSAGE,
+  SET_MESSAGES_STATUS,
+  SET_MESSAGE_STATUS
+} from '../constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import { combineReducers } from 'redux'
 
@@ -6,7 +12,8 @@ const listdefaultState = {
   data: [],
   page: 1,
   pageTotal: 0,
-  pageSize: 0
+  pageSize: 0,
+  status: 'none'
 }
 
 const list = (state = listdefaultState, action = {}) => {
@@ -15,9 +22,15 @@ const list = (state = listdefaultState, action = {}) => {
       return {
         ...state,
         data: action.payload.messages,
-        page: action.payload.pageIndex,
+        page: action.payload.PageIndex,
         pageTotal: action.payload.PageCount,
         pageSize: action.payload.PageSize
+      }
+      break
+    case SET_MESSAGES_STATUS:
+      return {
+        ...state,
+        status: action.payload
       }
       break
     case LOCATION_CHANGE:
@@ -33,7 +46,8 @@ const messagesdefaultState = {
   data: [],
   page: 1,
   pageTotal: 0,
-  pageSize: 0
+  pageSize: 0,
+  status: 'none'
 }
 
 const message = (state = messagesdefaultState, action = {}) => {
@@ -47,6 +61,9 @@ const message = (state = messagesdefaultState, action = {}) => {
         pageSize: action.payload.Messages.PageSize
       }
       break
+    case SET_MESSAGE_STATUS:
+      return { ...state, status: action.payload }
+      break
     case LOCATION_CHANGE:
     case RESET_MESSAGES:
       return messagesdefaultState
@@ -56,15 +73,15 @@ const message = (state = messagesdefaultState, action = {}) => {
   }
 }
 
-
 export default combineReducers({
   list,
   message
 })
 
-export const messageListSelector = (state) => state.messages.message.data
-export const fetchedMessageSelector = (state) =>
-  state.messages.message.pageSize > 0 ? true : false
+
 export const messagesListSelector = (state) => state.messages.list.data
-export const fetchedMessagesSelector = (state) =>
-  state.messages.list.pageSize > 0 ? true : false
+export const messageListSelector = (state) => state.messages.message.data
+export const messagesStatusSelector = (state) => state.messages.list.status
+export const messageStatusSelector = (state) => state.messages.message.status
+
+

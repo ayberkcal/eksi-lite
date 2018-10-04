@@ -7,8 +7,24 @@ import {
   SET_MESSAGES,
   RESET_MESSAGES,
   SET_EVENTS,
-  SET_MESSAGE
+  SET_MESSAGE,
+  SET_MESSAGES_STATUS,
+  SET_MESSAGE_STATUS
 } from '../constants'
+
+export function setMessagesStatus(payload) {
+  return async (dispatch, getState, eksi) => {
+    dispatch({ type: SET_MESSAGES_STATUS, payload })
+  }
+}
+
+export function setMessageStatus(payload) {
+  return async (dispatch, getState, eksi) => {
+    dispatch({ type: SET_MESSAGE_STATUS, payload })
+  }
+}
+
+
 
 export function setMe(payload, extra) {
   return async (dispatch, getState, eksi) => {
@@ -65,11 +81,13 @@ export function getEntrys(state = {}) {
 export function setMessages(payload, extra) {
   return async (dispatch, getState, eksi) => {
     dispatch({ type: SET_MESSAGES, payload })
+    dispatch(setMessagesStatus('success'))
   }
 }
 
 export function getMessages(payload) {
   return async (dispatch, getState, eksi) => {
+    dispatch(setMessagesStatus('fetching'))
     const response = await eksi.getMessages(payload)
     dispatch(setMessages(response.data))
   }
@@ -98,11 +116,13 @@ export function setMessage(payload, extra) {
     dispatch({ type: SET_MESSAGE, payload })
     let response = await eksi.getMyUnreadMessagesCount()
     dispatch(setMessageCount(response.data))
+    dispatch(setMessageStatus('success'))
   }
 }
 
 export function getMessage(payload = {}) {
   return async (dispatch, getState, eksi) => {
+    dispatch(setMessageStatus('fetching'))
     const response = await eksi.getMessage(payload.nick)
     dispatch(setMessage(response.data))
   }

@@ -4,13 +4,12 @@ import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 import { getChannels } from '../actions/channels'
 import Loader from './../components/loader'
-import { Divider } from 'antd'
 import {
   fetchedChannelsSelector,
   channelsPriortySelector
 } from '../reducers/channels'
 
-class Channels extends React.PureComponent {
+class HeadChannelsDesktop extends React.PureComponent {
   componentDidMount() {
     if (!this.props.isFetched) {
       const { getChannels } = this.props
@@ -29,9 +28,9 @@ class Channels extends React.PureComponent {
             <Link to={`/channel/${channel.Name}`}> {channel.DisplayName}</Link>{' '}
           </p>
         ))}
-        <hr/>
-        <p> 
-            <Link to={`/channels`}> #tümü</Link>
+        <hr />
+        <p>
+          <Link to={`/channels`}> #tümü</Link>
         </p>
       </div>
     )
@@ -49,4 +48,4 @@ const mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Channels)
+)(HeadChannelsDesktop)
