@@ -9,7 +9,8 @@ import {
   SET_EVENTS,
   SET_MESSAGE,
   SET_MESSAGES_STATUS,
-  SET_MESSAGE_STATUS
+  SET_MESSAGE_STATUS,
+  SET_EVENTS_STATUS
 } from '../constants'
 
 export function setMessagesStatus(payload) {
@@ -24,6 +25,11 @@ export function setMessageStatus(payload) {
   }
 }
 
+export function setEventsStatus(payload) {
+  return async (dispatch, getState, eksi) => {
+    dispatch({ type: SET_EVENTS_STATUS, payload })
+  }
+}
 
 
 export function setMe(payload, extra) {
@@ -96,17 +102,14 @@ export function getMessages(payload) {
 export function setEvents(payload, extra) {
   return async (dispatch, getState, eksi) => {
     dispatch({ type: SET_EVENTS, payload })
-    let response = await eksi.getMyUnreadTopicsCount()
-    dispatch(setEventCount(response.data))
-
+    dispatch(setEventsStatus('success'))
   }
 }
 
 export function getEvents(payload = {}){
   return async (dispatch, getState, eksi) => {
-    const response = await eksi.client.get(`v1/index/olay`, {
-      p: payload.page ? payload.page : 1
-    }) // todo remove after
+    dispatch(setEventsStatus('fetching'))
+    const response = await eksi.getEvents(payload)
     dispatch(setEvents(response.data))
   }
 }

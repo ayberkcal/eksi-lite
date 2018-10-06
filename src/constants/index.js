@@ -18,6 +18,7 @@ export const SET_ENTRYS = 'SET_ENTRYS'
 export const RESET_ENTRYS = 'RESET_ENTRYS'
 export const SET_EVENTS = 'SET_EVENTS'
 export const RESET_EVENTS = 'RESET_EVENTS'
+export const SET_EVENTS_STATUS = 'SET_EVENTS_STATUS'
 
 // User
 export const SET_USER = 'SET_USER'

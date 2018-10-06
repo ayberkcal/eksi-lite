@@ -54,7 +54,7 @@ class MyMessages extends React.PureComponent {
               {Array.from({
                 length: 25
               }).map((_, i) => (
-                <Skeleton loading={true} active avatar key={i} />
+                <Skeleton avatar key={i} />
               ))}
             </React.Fragment>
           )}
