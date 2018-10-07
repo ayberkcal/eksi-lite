@@ -4,7 +4,8 @@ import {
   RESET_ENTRYS,
   SET_ENTRY,
   SET_ENTRY_STATUS,
-  RESET_ENTRY
+  RESET_ENTRY,
+  SET_ENTRY_UPDATE
 } from '../constants'
 import { LOCATION_CHANGE } from 'react-router-redux'
 import { combineReducers } from 'redux'
@@ -25,7 +26,10 @@ const list = (state = listdefaultState, action = {}) => {
         ...state,
         info: {
           title: action.payload.Title,
-          slug: action.payload.Slug
+          slug: action.payload.Slug,
+          isTracked: action.payload.IsTracked,
+          isAma: action.payload.IsAmaTopic,
+          isTrackable: action.payload.IsTrackable
         },
         data: action.payload.Entries,
         page: action.payload.PageIndex,
@@ -33,13 +37,25 @@ const list = (state = listdefaultState, action = {}) => {
         pageSize: action.payload.PageSize
       }
       break
+    case SET_ENTRY_UPDATE:
+      return {
+        ...state,
+        data:state.data.map(entry => {
+          if (entry.Id == action.payload.Id){
+            return action.payload
+          }
+
+          return entry
+        })
+      }
+    break
     case SET_ENTRYS_STATUS:
       return {
         ...state,
         status: action.payload
       }
       break
-    case LOCATION_CHANGE:
+    //case LOCATION_CHANGE:
     case RESET_ENTRYS:
       return listdefaultState
       break
@@ -70,7 +86,7 @@ const entry = (state = entrydefaultState, action = {}) => {
     case SET_ENTRY_STATUS:
       return { ...state, status: action.payload }
       break
-    case LOCATION_CHANGE:
+    //case LOCATION_CHANGE:
     case RESET_ENTRY:
       return entrydefaultState
       break

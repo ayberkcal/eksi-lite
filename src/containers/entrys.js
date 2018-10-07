@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux'
 import { Link } from 'react-router-dom'
 import * as entryActions from '../actions/entrys'
 import Skeleton from '../components/skeleton'
-import { Row, Col } from 'antd'
+import { Row, Col, Divider, Button, Icon } from 'antd'
 import { entrysStatusSelector, entrysListSelector } from '../reducers/entrys'
 import Pagination from '../components/pagination'
 import ShowMore from '../components/show_more'
@@ -31,40 +31,57 @@ class Entrys extends React.PureComponent {
 
   pageChange = (page) => {
     const { history, location } = this.props
-    history.replace({ ...location, search: stringify({ page: page }) })
+    const {
+      match: {
+        params: { topic_id }
+      }
+    } = this.props
+    const { getEntrys } = this.props.entryActions
+
+    getEntrys(topic_id, { p: page }).then(() => {
+      history.replace({ ...location, search: stringify({ page: page }) })
+    })
+  }
+
+  favoriteEntry(entry_id) {
+    const { setEntryFavorite } = this.props.entryActions
+
+    setEntryFavorite(entry_id).then(() => {})
+  }
+  unFavoriteEntry(entry_id) {
+    const { setEntryUnFavorite } = this.props.entryActions
+
+    setEntryUnFavorite(entry_id).then(() => {})
   }
 
   render() {
     const { list, status } = this.props
-    console.log(status)
-    return (
-      <div className="view">
+    return <div className="view">
         <div className="topics-pagination">
           <div className="view">
-            <Pagination
-              defaultCurrent={1}
-              current={this.props.entrys.page}
-              total={this.props.entrys.pageTotal}
-              onChange={this.pageChange}
-              status={status}
-            />
+            <Pagination defaultCurrent={1} current={this.props.entrys.page} total={this.props.entrys.pageTotal} onChange={this.pageChange} status={status} />
           </div>
         </div>
         <div className="message-container">
-          {status === 'fetching' && (
-            <React.Fragment>
+          {status === 'fetching' && <React.Fragment>
               {Array.from({
                 length: 25
-              }).map((_, i) => (
-                <Skeleton avatar key={i} />
-              ))}
-            </React.Fragment>
-          )}
+              }).map((_, i) => <Skeleton avatar key={i} />)}
+            </React.Fragment>}
 
-          {status === 'success' && (
-            <React.Fragment>
+          {status === 'success' && <React.Fragment>
               <div className="entry-info">
-                <h3>{this.props.entrys.info.title} </h3>
+                <Row>
+                  <Col span={20}>
+                    <h3>{this.props.entrys.info.title} </h3>
+                  </Col>
+                  <Col span={4}>
+                    {this.props.entrys.info.isTrackable && <React.Fragment>
+                        {!this.props.entrys.info.isTracked && <Icon type="plus-circle" />}
+                        {this.props.entrys.info.isTracked && <Icon type="minus-circle" />}
+                      </React.Fragment>}
+                  </Col>
+                </Row>
               </div>
               <div className="entrys-list">
                 {list.map((entry) => (
@@ -73,29 +90,55 @@ class Entrys extends React.PureComponent {
                       <ShowMore text={entry.Content} />
                     </div>
                     <div className="entry-info-block">
+                      <Divider orientation="right">
+                        <Link
+                          to={`/user/${entry.Author.Nick}`}
+                          className="entry-user"
+                        >
+                          {entry.Author.Nick}
+                        </Link>
+                      </Divider>
                       <Row>
                         <Col span={12}>
-                          <Link to={`/user/${entry.Author.Nick}`}>
-                            {entry.Author.Nick}
-                          </Link>
+                          <span
+                            className="entry-favorite-action"
+                            onClick={() =>
+                              entry.IsFavorite
+                                ? this.unFavoriteEntry(entry.Id)
+                                : this.favoriteEntry(entry.Id)
+                            }
+                          >
+                            <Icon
+                              type={entry.IsFavorite ? 'star' : 'star-o'}
+                              className={
+                                entry.IsFavorite
+                                  ? 'entry-favorite-action--active'
+                                  : 'entry-favorite-action--default'
+                              }
+                            />
+                            &nbsp;
+                            {entry.FavoriteCount}
+                          </span>
                         </Col>
                         <Col span={12}>
                           <Link
                             to={`/entry/${entry.Id}`}
-                          className="entry-date">{`${distanceInWordsToNow(new Date(entry.Created), {
-                            locale: en // todo: remove after
-                          })}`}</Link>
+                            className="entry-date"
+                          >{`${distanceInWordsToNow(
+                            new Date(entry.Created),
+                            {
+                              locale: en // todo: remove after
+                            }
+                          )}`}</Link>
                         </Col>
                       </Row>
                     </div>
                   </div>
                 ))}
               </div>
-            </React.Fragment>
-          )}
+            </React.Fragment>}
         </div>
       </div>
-    )
   }
 }
 

@@ -430,6 +430,15 @@ a {
   padding-bottom:0.5em
 }
 
-.entry-date{
-  float:right;
+.entry-date{ 
+  float: right;
+  margin-right:10px;
+}
+
+.entry-favorite-action{
+  cursor: pointer;
+}
+
+.entry-favorite-action--active{
+  color: #ffcc00
 }
