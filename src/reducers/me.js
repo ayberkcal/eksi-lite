@@ -5,8 +5,8 @@ import {
   EVENT_COUNT_SET,
   SET_FAVORITES,
   RESET_FAVORITES,
-  SET_ENTRYS,
-  RESET_ENTRYS,
+  SET_MY_ENTRYS,
+  RESET_MY_ENTRYS,
   SET_EVENTS,
   RESET_EVENTS,
   SET_EVENTS_STATUS
@@ -104,7 +104,7 @@ const entrysDefaultState = {
 
 const entrys = (state = entrysDefaultState, action = {}) => {
   switch (action.type) {
-    case SET_ENTRYS:
+    case SET_MY_ENTRYS:
       return {
         ...state,
         data: [...state.data, ...action.payload.Entries],
@@ -114,7 +114,7 @@ const entrys = (state = entrysDefaultState, action = {}) => {
       }
       break
     case LOCATION_CHANGE:
-    case RESET_ENTRYS:
+    case RESET_MY_ENTRYS:
       return entrysDefaultState
       break
     default:

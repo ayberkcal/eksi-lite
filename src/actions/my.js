@@ -3,7 +3,7 @@ import {
   MESSAGE_COUNT_SET,
   EVENT_COUNT_SET,
   SET_FAVORITES,
-  SET_ENTRYS,
+  SET_MY_ENTRYS,
   SET_MESSAGES,
   RESET_MESSAGES,
   SET_EVENTS,
@@ -73,7 +73,7 @@ export function getFavoriteEntrys(state) {
 
 export function setEntrys(payload, extra) {
   return async (dispatch, getState, eksi) => {
-    dispatch({ type: SET_ENTRYS, payload })
+    dispatch({ type: SET_MY_ENTRYS, payload })
   }
 }
 
