@@ -31,16 +31,7 @@ class Entrys extends React.PureComponent {
 
   pageChange = (page) => {
     const { history, location } = this.props
-    const {
-      match: {
-        params: { topic_id }
-      }
-    } = this.props
-    const { getEntrys } = this.props.entryActions
-
-    getEntrys(topic_id, { p: page }).then(() => {
-      history.replace({ ...location, search: stringify({ page: page }) })
-    })
+    history.replace({ ...location, search: stringify({ page: page }) })
   }
 
   render() {
