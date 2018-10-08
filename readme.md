@@ -2,6 +2,8 @@
 
 Daha sade ve kendi kullanımıza uygun ekşisözlük kullanmak isteyenler için ekşi sözlük apisiyle yazılmış örnek react web app.
 
+[Demo](https://eksi-lite.netlify.com)
+
 Kurulum
 ```sh
 git clone https://github.com/c0b41/eksi-lite.git
